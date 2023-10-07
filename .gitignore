@@ -22,3 +22,12 @@
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
 replay_pid*
+
+# Don't include pvt ("private") package
+pvt/**
+
+# Don't include vscode directory
+.vscode/
+
+# Don't include java code formatting rules
+eclipse-formatter.xml
