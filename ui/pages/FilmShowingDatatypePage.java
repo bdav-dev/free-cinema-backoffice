@@ -5,13 +5,14 @@ import java.awt.Toolkit;
 
 import fcbo.datatypes.FilmShowing;
 import free_ui.DatatypePage;
+import free_ui.UI;
 import free_ui.components.DateField;
 import free_ui.components.HorizontalLine;
+import free_ui.components.InteractiveList;
 import free_ui.components.LabeledCheckbox;
 import free_ui.components.LabeledTextField;
 import free_ui.stacking.HStack;
 import free_ui.stacking.Spacer;
-import free_ui.stacking.Stack;
 import free_ui.stacking.StackManager;
 import free_ui.stacking.VStack;
 
@@ -33,6 +34,8 @@ public class FilmShowingDatatypePage extends DatatypePage {
 
     private LabeledCheckbox activeCheckbox;
 
+    private InteractiveList<String> tagList;
+
     public FilmShowingDatatypePage(int filmShowingID, AccessType accessType) {
         super(accessType);
         this.filmShowingID = filmShowingID;
@@ -40,15 +43,15 @@ public class FilmShowingDatatypePage extends DatatypePage {
 
     @Override
     public void launch() {
-        setSize(800, 532);
+        setSize(800, 800);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (d.width - getSize().width) / 2;
         int y = (d.height - getSize().height) / 2;
         setLocation(x, y);
         setTitle("FREE CINEMA Backoffice: Film");
-        setResizable(true);
+        setResizable(false);
 
-        var stackManager = new StackManager(getUIStack(), 10, 0);
+        var stackManager = new StackManager(getUIStack(), 20, 0);
         stackManager.build(this);
 
         setVisible(true);
@@ -69,6 +72,8 @@ public class FilmShowingDatatypePage extends DatatypePage {
 
         activeCheckbox = new LabeledCheckbox("Aktiv", 10);
 
+        tagList = new InteractiveList<String>(e -> new String[] { e, "gf" }, p -> UI.getInstance().addChildPanelToCurrentUIPanel(() -> p));
+
         mainStack.add(
                 new HorizontalLine("Allgemein").defaultHeight(),
                 movieNameField,
@@ -82,8 +87,14 @@ public class FilmShowingDatatypePage extends DatatypePage {
                 new Spacer(),
 
                 new HorizontalLine("Kosten").defaultHeight(),
-                HStack.fit(advertisingCostField, spioCostField, otherCostField).setComponentPadding(5));
-            
+                HStack.fit(advertisingCostField, spioCostField, otherCostField).setComponentPadding(5),
+
+                new Spacer(),
+
+                new HorizontalLine("Tags").defaultHeight(),
+                tagList.getStack()
+        );
+
         return mainStack;
     }
 

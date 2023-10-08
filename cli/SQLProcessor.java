@@ -379,7 +379,7 @@ public class SQLProcessor extends TerminalProcessor {
             String[] dataset = new String[columns];
 
             for (int i = 0; i < columns; i++)
-                dataset[i] = resultSet.getString(i + 1);
+                dataset[i] = resultSet.getString(i + 1).replaceAll("[\\t\\n\\r]+", " ");
 
             table.add(dataset);
         }

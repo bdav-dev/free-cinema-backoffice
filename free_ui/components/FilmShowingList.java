@@ -3,6 +3,7 @@ package free_ui.components;
 import javax.swing.DefaultListModel;
 
 import fcbo.datatypes.FilmShowing;
+import free_ui.Component;
 import free_ui.UI;
 import free_ui.UIDesigner;
 import free_ui.DatatypePage.AccessType;
@@ -15,7 +16,7 @@ import free_ui.stacking.Stack;
 import free_ui.stacking.VStack;
 import ui.pages.FilmShowingDatatypePage;
 
-public class FilmShowingList implements StackComponent {
+public class FilmShowingList implements Component, StackComponent {
     private List<FilmShowing> list;
     private Button addButton, infoButton, proceedButton;
 
@@ -41,23 +42,23 @@ public class FilmShowingList implements StackComponent {
         UIDesigner.setWidth(addButton, 2 * buttonBarHeight);
 
 
-        var buttonBar = new HStack();
-        buttonBar.add(
+        var buttonBar = new HStack(
                 infoButton,
                 new Spacer(componentPadding),
                 proceedButton,
                 new Spacer(componentPadding),
-                addButton);
-
-        buttonBar.setHeight(buttonBarHeight);
+                addButton)
+                        .setHeight(buttonBarHeight);
 
         list = new List<FilmShowing>();
 
-        mainStack = new VStack();
-        mainStack.add(
+        mainStack = new VStack(
                 list,
                 new Spacer(componentPadding),
                 buttonBar);
+
+        applyStyle();
+
     }
 
     public DefaultListModel<FilmShowing> actions() {
@@ -66,6 +67,11 @@ public class FilmShowingList implements StackComponent {
 
     public Stack getStack() {
         return mainStack;
+    }
+
+    @Override
+    public void applyStyle() {
+        list.getJList().setFont(UIDesigner.getRegularXl());
     }
 
 }

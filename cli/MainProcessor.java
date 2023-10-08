@@ -103,7 +103,7 @@ public class MainProcessor extends TerminalProcessor {
                     getTerminal().getTerminalWindow().log(
                             String.valueOf(AppSettings.getInstance().uidebug().get()));
                 })
-                .description("")
+                .description("f")
                 .build());
 
         addCommand(CommandBuilder.newCommand()
@@ -115,7 +115,7 @@ public class MainProcessor extends TerminalProcessor {
                     getTerminal().getTerminalWindow().log(
                             "Saved uidebug " + AppSettings.getInstance().uidebug().getValueInLocalStorage() + " to LocalStorage. Restart required.");
                 })
-                .description("")
+                .description("d")
                 .build());
     }
 

@@ -34,8 +34,10 @@ public class AddFilmShowingEntryPage extends Page {
 
         getContentPane().setBackground(AppTheme.get().background());
 
-        var stackManager = new StackManager(getUIStack(), 10, 0);
+        var stackManager = new StackManager(getUIStack(), 20, 0);
         stackManager.build(this);
+
+        loadMovieData();
 
         setVisible(true);
     }
@@ -47,13 +49,9 @@ public class AddFilmShowingEntryPage extends Page {
 
         filmShowingList = new FilmShowingList();
 
-        var mainStack = new VStack();
-
-        mainStack.add(
+        var mainStack = new VStack(
                 textLabel,
                 filmShowingList.getStack());
-
-        //loadMovieData();
 
         return mainStack;
     }

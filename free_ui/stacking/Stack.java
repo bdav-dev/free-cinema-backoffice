@@ -32,12 +32,14 @@ public abstract class Stack {
         return height;
     }
 
-    public void setWidth(int width) {
+    public Stack setWidth(int width) {
         this.width = width;
+        return this;
     }
 
-    public void setHeight(int height) {
+    public Stack setHeight(int height) {
         this.height = height;
+        return this;
     }
 
     public void add(Object o) {

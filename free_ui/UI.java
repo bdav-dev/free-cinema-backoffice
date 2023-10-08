@@ -1,6 +1,7 @@
 package free_ui;
 
 import java.util.ArrayList;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import appsettings.AppSettings;
@@ -8,6 +9,7 @@ import db.utility.DatabaseExceptionRunnable;
 import exceptions.DatabaseException;
 import exceptions.DisplayableException;
 import ui.pages.ErrorPage;
+import ui.pages.utility.SearchHelpPage;
 import utility.Concurrency;
 
 public class UI {
@@ -81,8 +83,8 @@ public class UI {
         independentPanels.clear();
     }
 
-    public void addChildPanelToCurrentUIPanel(Supplier<Page> childPanelSupplier) {
-        getCurrentPanel().addChildPanel(childPanelSupplier);
+    public void addChildPanelToCurrentUIPanel(Supplier<Page> p) {
+        getCurrentPanel().addChildPanel(p);
     }
 
     public void addErrorPanelToCurrentUIPanel(DisplayableException e) {

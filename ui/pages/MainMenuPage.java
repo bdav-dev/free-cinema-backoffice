@@ -129,6 +129,7 @@ public class MainMenuPage extends Page {
                 new Spacer(0.4f),
                 useraccountManagementButton,
                 new Spacer(0.4f));
+        hstack2.setHeight(45);
 
 
         var mainStack = new VStack(

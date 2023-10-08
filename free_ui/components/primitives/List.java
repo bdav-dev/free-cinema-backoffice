@@ -1,5 +1,8 @@
 package free_ui.components.primitives;
 
+import java.util.ArrayList;
+import java.util.TimeZone;
+
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
@@ -26,10 +29,29 @@ public class List<T> extends ScrollPane {
         return defaultListModel;
     }
 
+    public JList<T> getJList() {
+        return list;
+    }
+
+    public ArrayList<T> getAllValues() {
+        ArrayList<T> allValues = new ArrayList<>();
+
+        for (int i = 0; i < actions().getSize(); i++)
+            allValues.add(actions().get(i));
+
+        return allValues;
+    }
+
+    public boolean has(T value) {
+        return getAllValues()
+                .stream()
+                .anyMatch(e -> e.equals(value));
+    }
+
     private void applyListStyle() {
-        list.setFont(UIDesigner.getRegularXl());
+        list.setFont(UIDesigner.getRegularMd());
         list.setCellRenderer(new CustomListCellRenderer());
-        //TODO: Selected item color
+        // TODO: Selected item color
     }
 
 }

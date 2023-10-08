@@ -15,18 +15,17 @@ public class DateField extends JTextField {
         Date date = new Date();
         date.setDate(getText());
 
-        if (date.isValid()) {
+        if (date.isValid())
             return date;
-        } else {
+        else
             return null;
-        }
     }
 
     @Override
     public void setBounds(int x, int y, int width, int height) {
         super.setBounds(x, y, width, height);
 
-        //setFont(AssetManager.get().getDefaultMonoFont().deriveFont(height - 10.0f));
+        // setFont(AssetManager.get().getDefaultMonoFont().deriveFont(height - 10.0f));
     }
 
 }

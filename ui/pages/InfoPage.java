@@ -60,16 +60,17 @@ public class InfoPage extends Page {
         UIDesigner.setWidth(launchTerminal, 110);
         UIDesigner.setHeight(launchTerminal, 35);
 
-        VStack mainStack = new VStack();
-        mainStack.add(logo);
-        mainStack.add(projectName);
-        mainStack.add(new Spacer());
-        mainStack.add(version);
-        mainStack.add(author);
-        mainStack.add(new Spacer());
-        mainStack.add(launchTerminal);
+        VStack mainStack = new VStack(
+                logo,
+                new Spacer(10),
+                projectName,
+                new Spacer(),
+                version,
+                author,
+                new Spacer(),
+                launchTerminal);
 
-        StackManager stackManager = new StackManager(mainStack, 20, 6);
+        StackManager stackManager = new StackManager(mainStack, 50, 6);
         stackManager.build(this);
 
         setVisible(true);
