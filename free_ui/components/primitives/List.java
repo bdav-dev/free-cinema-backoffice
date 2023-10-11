@@ -1,8 +1,6 @@
 package free_ui.components.primitives;
 
 import java.util.ArrayList;
-import java.util.TimeZone;
-
 import javax.swing.DefaultListModel;
 import javax.swing.JList;
 
@@ -33,7 +31,7 @@ public class List<T> extends ScrollPane {
         return list;
     }
 
-    public ArrayList<T> getAllValues() {
+    public java.util.List<T> getAllValues() {
         ArrayList<T> allValues = new ArrayList<>();
 
         for (int i = 0; i < actions().getSize(); i++)

@@ -2,6 +2,8 @@ package ui.pages;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
+import java.util.ArrayList;
+import java.util.HashSet;
 
 import fcbo.datatypes.FilmShowing;
 import free_ui.DatatypePage;
@@ -72,7 +74,19 @@ public class FilmShowingDatatypePage extends DatatypePage {
 
         activeCheckbox = new LabeledCheckbox("Aktiv", 10);
 
-        tagList = new InteractiveList<String>(e -> new String[] { e, "gf" }, p -> UI.getInstance().addChildPanelToCurrentUIPanel(() -> p));
+
+        tagList = new InteractiveList<String>(
+                input -> {
+                    var list = new ArrayList<String>();
+
+                    list.add(input);
+
+                    for(int i = 0; i < 100; i++)
+                        list.add(input + i);
+
+                    return list;
+                },
+                p -> UI.getInstance().addChildPanelToCurrentUIPanel(() -> p));
 
         mainStack.add(
                 new HorizontalLine("Allgemein").defaultHeight(),
@@ -92,8 +106,7 @@ public class FilmShowingDatatypePage extends DatatypePage {
                 new Spacer(),
 
                 new HorizontalLine("Tags").defaultHeight(),
-                tagList.getStack()
-        );
+                tagList.getStack());
 
         return mainStack;
     }

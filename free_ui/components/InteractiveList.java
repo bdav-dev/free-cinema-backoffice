@@ -19,27 +19,24 @@ import ui.pages.utility.SearchHelpPage;
 public class InteractiveList<T> implements Component, StackComponent {
 
     private List<T> list;
-
     private TextField addField;
-
     private Button addButton, removeButton;
 
     private VStack stack;
 
-    private Function<String, T[]> fromStringConverter;
-    private Consumer<SearchHelpPage<T>> searchHelpPage;
+    private Function<String, java.util.List<T>> fromStringConverter;
+    private Consumer<SearchHelpPage<T>> searchHelpPageLauncher;
 
     private final int BOTTOM_BAR_SIZE = 30;
 
-    public InteractiveList(Function<String, T[]> fromStringConverter, Consumer<SearchHelpPage<T>> searchHelpPage) {
+    public InteractiveList(Function<String, java.util.List<T>> fromStringConverter, Consumer<SearchHelpPage<T>> searchHelpPageLauncher) {
         this.fromStringConverter = fromStringConverter;
-        this.searchHelpPage = searchHelpPage;
+        this.searchHelpPageLauncher = searchHelpPageLauncher;
 
         list = new List<>();
 
         addField = new TextField();
         addField.addKeyListener(new KeyListener() {
-
             @Override
             public void keyReleased(KeyEvent e) {
                 if (e.getKeyCode() == 10) // 10 = ENTER
@@ -69,25 +66,31 @@ public class InteractiveList<T> implements Component, StackComponent {
     }
 
     private void addFromString(String input) {
-        T[] converted = fromStringConverter.apply(addField.getText());
+        java.util.List<T> converted = fromStringConverter.apply(addField.getText());
 
-        if (converted == null || converted.length == 0)
+        if (converted == null)
             return;
 
-        if (converted.length == 1)
-            add(converted[0]);
-        else
-            launchSearchHelp(converted);
+        converted.removeIf(element -> list.getAllValues().contains(element));
 
+        if (converted.size() == 0)
+            return;
+
+        if (converted.size() == 1) {
+            add(converted.get(0));
+            addField.setText("");
+        } else {
+            launchSearchHelp(converted);
+        }
     }
 
-    private void launchSearchHelp(T[] values) {
+    private void launchSearchHelp(java.util.List<T> values) {
         addField.setEnabled(false);
         addButton.setEnabled(false);
 
-        searchHelpPage.accept(new SearchHelpPage<T>(values, e -> {
-            if (e != null) {
-                add(e);
+        searchHelpPageLauncher.accept(new SearchHelpPage<T>(values, selectedValues -> {
+            if (selectedValues != null && selectedValues.size() != 0) {
+                addAll(selectedValues);
                 addField.setText("");
             }
 
@@ -101,6 +104,11 @@ public class InteractiveList<T> implements Component, StackComponent {
             return;
 
         list.actions().addElement(item);
+    }
+
+    public void addAll(java.util.List<T> list) {
+        for (T element : list)
+            add(element);
     }
 
     public void removeSelected() {
