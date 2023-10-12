@@ -1,4 +1,4 @@
-package dev;
+package debug;
 
 import java.awt.AlphaComposite;
 import java.awt.Color;

@@ -27,9 +27,8 @@ public class CryptographicUtility {
     }
 
     public static CryptographicUtility getInstance() {
-        if (instance == null) {
+        if (instance == null)
             instance = new CryptographicUtility();
-        }
 
         return instance;
     }
@@ -56,9 +55,8 @@ public class CryptographicUtility {
         int indexOfOTP = 0;
 
         for (int i = 0; i < text.length(); i++) {
-            if (indexOfOTP == key.getKey().length()) {
+            if (indexOfOTP == key.getKey().length())
                 indexOfOTP = 0;
-            }
 
             int shift = indexInAlphabet(key.getKey().charAt(indexOfOTP));
 
@@ -68,13 +66,14 @@ public class CryptographicUtility {
             }
 
             int finalIndex;
+
             if (encrypt) {
                 finalIndex = (indexInAlphabet(text.charAt(i)) + shift) % alphabetLength;
             } else {
                 finalIndex = (indexInAlphabet(text.charAt(i)) - shift) % alphabetLength;
-                if (finalIndex < 0) {
+
+                if (finalIndex < 0)
                     finalIndex += alphabetLength;
-                }
             }
 
             builder.append(ALPHABET[finalIndex]);
@@ -87,20 +86,18 @@ public class CryptographicUtility {
 
     private int indexInAlphabet(char c) {
         for (int i = 0; i < ALPHABET.length; i++) {
-            if (ALPHABET[i] == c) {
+            if (ALPHABET[i] == c)
                 return i;
-            }
         }
         return -1;
     }
 
-    @SuppressWarnings("unused")
     private String generatePassword(int length) {
         StringBuilder builder = new StringBuilder();
 
-        for (int i = 0; i < length; i++) {
+        for (int i = 0; i < length; i++)
             builder.append(ALPHABET[getRandomNumber(0, ALPHABET.length - 1)]);
-        }
+
 
         return builder.toString();
 
@@ -128,8 +125,7 @@ public class CryptographicUtility {
     }
 
     public static enum EncryptionKeys {
-        REGISTRY(PrivateKeys.REGISTRY),
-        SALT(PrivateKeys.SALT);
+        REGISTRY(PrivateKeys.REGISTRY), SALT(PrivateKeys.SALT);
 
         private String key;
 

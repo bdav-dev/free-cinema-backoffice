@@ -3,8 +3,8 @@ package fcbo.datatype.entries;
 import java.util.ArrayList;
 
 import fcbo.datatypes.Category;
-import fcbo.datatypes.Date;
 import fcbo.datatypes.Member;
+import fcbo.datatypes.time.Date;
 
 public abstract class Entry extends Category {
     private double revenue;

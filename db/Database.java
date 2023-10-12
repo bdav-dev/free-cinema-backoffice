@@ -14,10 +14,10 @@ import db.utility.ResultSetConsumer;
 import db.utility.ResultSetFunction;
 import exceptions.DatabaseException;
 import fcbo.datatype.entries.FilmShowingEntry;
-import fcbo.datatypes.Date;
 import fcbo.datatypes.FilmShowing;
 import fcbo.datatypes.Member;
 import fcbo.datatypes.UserAccount;
+import fcbo.datatypes.time.Date;
 import fcbo.datatypes.time.Timestamp;
 
 /**

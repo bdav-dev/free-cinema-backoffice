@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.util.function.Consumer;
 import javax.swing.JComponent;
 
-import dev.UIDebug;
+import debug.UIDebug;
 import free_ui.UI;
 import free_ui.UIDesigner;
 

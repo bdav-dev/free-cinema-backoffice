@@ -1,7 +1,8 @@
 package free_ui.components;
 
 import javax.swing.JTextField;
-import fcbo.datatypes.Date;
+
+import fcbo.datatypes.time.Date;
 
 @SuppressWarnings("serial")
 public class DateField extends JTextField {
@@ -12,13 +13,8 @@ public class DateField extends JTextField {
     }
 
     public Date getDate() {
-        Date date = new Date();
-        date.setDate(getText());
-
-        if (date.isValid())
-            return date;
-        else
-            return null;
+        Date date = new Date(getText());
+        return date;
     }
 
     @Override

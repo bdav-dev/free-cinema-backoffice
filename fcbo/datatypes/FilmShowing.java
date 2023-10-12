@@ -3,6 +3,7 @@ package fcbo.datatypes;
 import java.util.ArrayList;
 
 import fcbo.datatype.entries.FilmShowingEntry;
+import fcbo.datatypes.time.Date;
 
 public class FilmShowing extends Category {
     private String movieName; // Filmname
@@ -26,6 +27,13 @@ public class FilmShowing extends Category {
         return getMovieName();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof FilmShowing fs && fs.getID() == this.getID())
+            return true;
+
+        return false;
+    }
 
     /* Getters and Setters */
 
@@ -127,6 +135,6 @@ public class FilmShowing extends Category {
         this.filmShowingEntries = filmShowingEntries;
     }
 
-    
+
 
 }

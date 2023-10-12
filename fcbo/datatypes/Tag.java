@@ -8,6 +8,14 @@ public class Tag {
 
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Tag t && t.getTagID() == this.getTagID())
+            return true;
+
+        return false;
+    }
+
     public String getTitle() {
         return title;
     }

@@ -17,6 +17,14 @@ public class Member {
         this.active = active;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (o instanceof Member m && m.getMemberID() == this.getMemberID())
+            return true;
+
+        return false;
+    }
+
     public int getMemberID() {
         return memberID;
     }

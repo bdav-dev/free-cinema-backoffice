@@ -10,11 +10,7 @@ public class UserAccount {
 
     @Override
     public boolean equals(Object o) {
-        if (o == null) {
-            return false;
-        }
-
-        if (o instanceof UserAccount ua && ua.getID() == id)
+        if (o instanceof UserAccount ua && ua.getID() == this.id)
             return true;
 
         return false;
@@ -56,6 +52,6 @@ public class UserAccount {
         return this;
     }
 
-    
+
 
 }

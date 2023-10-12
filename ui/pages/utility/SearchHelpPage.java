@@ -6,10 +6,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.ArrayList;
 import java.util.function.Consumer;
-
-import javax.swing.ListSelectionModel;
 
 import free_ui.Page;
 import free_ui.UIDesigner;
@@ -69,7 +66,7 @@ public class SearchHelpPage<T> extends Page {
 
     @Override
     public void launch() {
-        setSize(300, 300); // 775 550
+        setSize(300, 300);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         int x = (d.width - getSize().width) / 2;
         int y = (d.height - getSize().height) / 2;
