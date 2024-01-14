@@ -4,6 +4,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingConstants;
 
 import free_ui.Component;
+import free_ui.theme.AppTheme;
 
 public class Label extends JLabel implements Component {
 
@@ -14,7 +15,7 @@ public class Label extends JLabel implements Component {
 
     @Override
     public void applyStyle() {
-        
+        setForeground(AppTheme.get().text());
     }
 
     public Label centered() {

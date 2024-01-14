@@ -2,9 +2,10 @@ package exceptions;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.stream.Collectors;
 
 @SuppressWarnings("serial")
-public abstract class DisplayableException extends Exception {
+public class DisplayableException extends Exception {
     private String description;
     private String title;
 
@@ -12,6 +13,10 @@ public abstract class DisplayableException extends Exception {
         super();
         this.description = description;
         this.title = title;
+    }
+
+    public static DisplayableException fromException(Exception e) {
+        return new DisplayableException("Fehler", e.getMessage() + "\n\nStacktrace:\n" + Arrays.stream(e.getStackTrace()).map(a -> a.toString()).collect(Collectors.joining("\n")));
     }
 
     public String getTitle() {

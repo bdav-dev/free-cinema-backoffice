@@ -245,7 +245,7 @@ public class Database {
                     .setAdvertisingCost(resultSet.getDouble("advertisingCost"))
                     .setSpioCost(resultSet.getDouble("spioCost"))
                     .setOtherCost(resultSet.getDouble("otherCost"))
-                    .setMoneyTransferred(new Date(resultSet.getString("moneyTransferred")))
+                    .setMoneyTransferred(Date.fromNullableString(resultSet.getString("moneyTransferred")))
                     .setOtherNotes(resultSet.getString("otherNotes"))
                     .setTimeOfCreation(new Timestamp(resultSet.getString("timeOfCreation")))
                     .setCreatedBy(getUserAccount(resultSet))

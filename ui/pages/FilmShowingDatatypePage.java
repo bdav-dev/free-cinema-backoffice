@@ -8,11 +8,13 @@ import java.util.HashSet;
 import fcbo.datatypes.FilmShowing;
 import free_ui.DatatypePage;
 import free_ui.UI;
+import free_ui.UIDesigner;
 import free_ui.components.DateField;
 import free_ui.components.HorizontalLine;
 import free_ui.components.InteractiveList;
 import free_ui.components.LabeledCheckbox;
 import free_ui.components.LabeledTextField;
+import free_ui.components.primitives.Labels;
 import free_ui.stacking.HStack;
 import free_ui.stacking.Spacer;
 import free_ui.stacking.StackManager;
@@ -74,6 +76,9 @@ public class FilmShowingDatatypePage extends DatatypePage {
 
         activeCheckbox = new LabeledCheckbox("Aktiv", 10);
 
+        var idLabel = Labels.text();
+        idLabel.setText("ID: 1");
+        UIDesigner.setHeight(idLabel, 15);
 
         tagList = new InteractiveList<String>(
                 input -> {
@@ -106,7 +111,15 @@ public class FilmShowingDatatypePage extends DatatypePage {
                 new Spacer(),
 
                 new HorizontalLine("Tags").defaultHeight(),
-                tagList.getStack());
+                tagList.getStack(),
+                
+                new Spacer(),
+
+                new DateField().getStack(),
+
+                new Spacer(),
+                
+                idLabel);
 
         return mainStack;
     }

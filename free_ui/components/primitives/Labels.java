@@ -29,6 +29,20 @@ public class Labels {
         return text;
     }
 
+    public static Label largeMonoText() {
+        final Label text = new Label();
+        text.setFont(UIDesigner.getMonoLg());
+        // TODO UIDesigner.setHeight(headline, 35);
+        return text;
+    }
+
+    public static Label xlMonoText() {
+        final Label text = new Label();
+        text.setFont(UIDesigner.getMonoXl());
+        // TODO UIDesigner.setHeight(headline, 35);
+        return text;
+    }
+
     public static Label largeText() {
         final Label text = new Label();
         text.setFont(UIDesigner.getRegularLg());
@@ -36,18 +50,24 @@ public class Labels {
         return text;
     }
 
-    public static Label text() {
+    public static Label monoText() {
         final Label text = new Label();
-        text.setFont(UIDesigner.getRegularMd());
-        text.setForeground(AppTheme.get().text());
+        text.setFont(UIDesigner.getMonoMd());
         // TODO UIDesigner.setHeight(headline, 35);
         return text;
     }
 
+    public static Label text() {
+        final Label text = new Label();
+        text.setFont(UIDesigner.getRegularMd());
+        // TODO UIDesigner.setHeight(headline, 35);
+        return text;
+    }
+
+
     public static Label smallText() {
         final Label text = new Label();
         text.setFont(UIDesigner.getRegularSm());
-        text.setForeground(AppTheme.get().text());
         return text;
     }
 

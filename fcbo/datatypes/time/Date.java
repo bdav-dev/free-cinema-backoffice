@@ -14,6 +14,13 @@ public class Date {
         day = Integer.parseInt(yearMonthDay[2]);
     }
 
+    public static Date fromNullableString(String dateString) {
+        if (dateString == null)
+            return null;
+
+        return new Date(dateString);
+    }
+
     public Date() {
 
     }

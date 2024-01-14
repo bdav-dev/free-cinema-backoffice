@@ -57,7 +57,7 @@ public class AddFilmShowingEntryPage extends Page {
     }
 
     private void loadMovieData() {
-        UI.asyncHandlingDbException(() -> {
+        UI.asyncHandlingExceptions(() -> {
             filmShowingList.actions().addAll(FCBO.getInstance().getActiveFilmShowings());
         });
     }

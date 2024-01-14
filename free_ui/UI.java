@@ -1,7 +1,6 @@
 package free_ui;
 
 import java.util.ArrayList;
-import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 import appsettings.AppSettings;
@@ -9,7 +8,6 @@ import db.utility.DatabaseExceptionRunnable;
 import exceptions.DatabaseException;
 import exceptions.DisplayableException;
 import ui.pages.ErrorPage;
-import ui.pages.utility.SearchHelpPage;
 import utility.Concurrency;
 
 public class UI {
@@ -117,17 +115,20 @@ public class UI {
         getCurrentPanel().setChildPanelsVisible(visible);
     }
 
-    public static void asyncHandlingDbException(DatabaseExceptionRunnable r) {
+    public static void asyncHandlingExceptions(DatabaseExceptionRunnable r) {
         Concurrency.async(() -> {
-            handleDatabaseException(r);
+            handleExceptions(r);
         });
     }
 
-    public static void handleDatabaseException(DatabaseExceptionRunnable r) {
+    public static void handleExceptions(DatabaseExceptionRunnable r) {
         try {
             r.run();
         } catch (DatabaseException e) {
             UI.getInstance().addErrorPanelToCurrentUIPanel(e);
+
+        } catch (Exception e) {
+            UI.getInstance().addErrorPanelToCurrentUIPanel(DisplayableException.fromException(e));
         }
     }
 
