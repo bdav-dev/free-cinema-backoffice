@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Optional;
 
 
-import fcbo.FCBO;
+import fcbo.FreeCinemaBackoffice;
 import utility.CryptographicUtility;
 
 /**
@@ -107,7 +107,7 @@ public class Terminal implements TerminalUIConnector {
         internalCommandProcessor.addCommand(CommandBuilder.newCommand()
                 .defaultArguments("quit", "all")
                 .expectedNumberOfArguments(0)
-                .action(args -> FCBO.getInstance().exit())
+                .action(args -> FreeCinemaBackoffice.getInstance().exit())
                 .build());
 
         internalCommandProcessor.addCommand(CommandBuilder.newCommand()

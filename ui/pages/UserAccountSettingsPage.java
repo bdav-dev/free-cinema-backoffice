@@ -4,9 +4,9 @@ import java.awt.Dimension;
 import java.awt.Toolkit;
 
 import javax.swing.SwingConstants;
+
+import db.model.UserAccount;
 import exceptions.DisplayableException;
-import fcbo.FCBO;
-import fcbo.datatypes.UserAccount;
 import free_ui.DatatypePage;
 import free_ui.UIDesigner;
 import free_ui.UI;
@@ -21,10 +21,11 @@ import free_ui.stacking.Spacer;
 import free_ui.stacking.StackManager;
 import free_ui.stacking.VStack;
 import free_ui.theme.AppTheme;
+import services.UserAccountService;
 import utility.Concurrency;
 
 public class UserAccountSettingsPage extends DatatypePage {
-    UserAccount userAccount;
+    private UserAccount userAccount;
 
     private HorizontalLine usernameLine;
     private LabeledTextField usernameField;
@@ -80,14 +81,14 @@ public class UserAccountSettingsPage extends DatatypePage {
             boolean error = false;
 
             try {
-                FCBO.getInstance().changeUsername(newUsername);
+                UserAccountService.getInstance().changeUsername(userAccount, newUsername);
             } catch (DisplayableException e) {
                 UI.getInstance().addErrorPanelToCurrentUIPanel(e);
                 error = true;
             }
 
             try {
-                FCBO.getInstance().changePassword(oldPassword, newPassword, newPasswordConfim);
+                UserAccountService.getInstance().changePassword(userAccount, oldPassword, newPassword, newPasswordConfim);
             } catch (DisplayableException e) {
                 UI.getInstance().addErrorPanelToCurrentUIPanel(e);
                 error = true;

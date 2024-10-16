@@ -3,7 +3,6 @@ package free_ui.components.primitives;
 import javax.swing.SwingConstants;
 
 import free_ui.UIDesigner;
-import free_ui.theme.AppTheme;
 
 public class Labels {
 
@@ -57,13 +56,17 @@ public class Labels {
         return text;
     }
 
-    public static Label text() {
-        final Label text = new Label();
-        text.setFont(UIDesigner.getRegularMd());
+    public static Label text(String text) {
+        final Label textLabel = new Label();
+        textLabel.setFont(UIDesigner.getRegularMd());
+        textLabel.setText(text);
         // TODO UIDesigner.setHeight(headline, 35);
-        return text;
+        return textLabel;
     }
 
+    public static Label text() {
+        return text("");
+    }
 
     public static Label smallText() {
         final Label text = new Label();
@@ -90,7 +93,6 @@ public class Labels {
         // TODO UIDesigner.setHeight(headline, 35);
         return text;
     }
-
 
 
 }

@@ -3,7 +3,7 @@ package ui.pages;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import fcbo.datatypes.UserAccount;
+import db.model.UserAccount;
 import free_ui.Page;
 import free_ui.components.DatatypeList;
 

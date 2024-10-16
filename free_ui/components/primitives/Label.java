@@ -24,4 +24,9 @@ public class Label extends JLabel implements Component {
         return this;
     }
     
+    public Label rightAligned() {
+        setHorizontalAlignment(RIGHT);
+        return this;
+    }
+
 }

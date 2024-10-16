@@ -11,8 +11,9 @@ import javax.swing.*;
 import assets.AssetManager.Images;
 import cli.TerminalPage;
 import exceptions.DisplayableException;
-import fcbo.FCBO;
+import fcbo.FreeCinemaBackoffice;
 import free_ui.Page;
+import free_ui.UI;
 import free_ui.UIDesigner;
 import free_ui.components.Image;
 import free_ui.components.LabeledPasswordField;
@@ -25,7 +26,9 @@ import free_ui.stacking.Spacer;
 import free_ui.stacking.StackManager;
 import free_ui.stacking.VStack;
 import free_ui.theme.AppTheme;
+import services.LoginService;
 import utility.Concurrency;
+import utility.Utility;
 
 public class LoginPage extends Page {
     private Label appName;
@@ -118,14 +121,19 @@ public class LoginPage extends Page {
 
     private void loginUser() {
         String username = usernameField.getText();
-        char[] password = passwordField.getPassword();
+        String password = Utility.charArrayToString(passwordField.getPassword());
 
         UIDesigner.block(login);
+
         Concurrency.async(() -> {
             try {
-                FCBO.getInstance().performLoginFromLoginPanel(username, password);
+                LoginService.getInstance().loginUser(username, password);
+                UI.getInstance().launchPanel(() -> new MainMenuPage());
             } catch (DisplayableException e) {
                 addErrorPanel(e);
+            } catch (Exception e) {
+                System.out.println("test");
+            
             } finally {
                 UIDesigner.unblock(login);
             }

@@ -2,8 +2,8 @@ package fcbo.datatype.entries;
 
 import java.util.ArrayList;
 
+import db.model.Member;
 import fcbo.datatypes.Category;
-import fcbo.datatypes.Member;
 import fcbo.datatypes.time.Date;
 
 public abstract class Entry extends Category {

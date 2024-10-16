@@ -5,7 +5,7 @@ import java.awt.Toolkit;
 
 import assets.AssetManager.Images;
 import cli.TerminalPage;
-import fcbo.FCBO;
+import fcbo.FreeCinemaBackoffice;
 import free_ui.Page;
 import free_ui.UIDesigner;
 import free_ui.components.Image;
@@ -47,7 +47,7 @@ public class InfoPage extends Page {
         UIDesigner.setHeight(projectName, 20);
 
         version = Labels.text().centered();
-        version.setText("Version " + FCBO.VERSION);
+        version.setText("Version " + FreeCinemaBackoffice.VERSION);
         UIDesigner.setHeight(version, 20);
 
         author = Labels.text().centered();

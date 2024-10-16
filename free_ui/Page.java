@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.function.Supplier;
 import javax.swing.*;
 import exceptions.DisplayableException;
-import fcbo.FCBO;
+import fcbo.FreeCinemaBackoffice;
 import free_ui.components.support.FrameConstants;
 import ui.pages.ErrorPage;
 
@@ -226,7 +226,7 @@ public abstract class Page extends JFrame {
         }
 
         if (uiManager.hierarchySize() == 1) { // if it's the last panel in the hierarchy
-            FCBO.getInstance().exit(); // exit (use exit procedure exit() in main class)
+            FreeCinemaBackoffice.getInstance().exit(); // exit (use exit procedure exit() in main class)
         } else { // if there are any other panels in the hierarchy
             uiManager.removeCurrentPanel(); // remove and dispose current open panel from the hierarchy
             uiManager.setCurrentPanelVisible(true); // show parent panel

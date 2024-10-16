@@ -3,9 +3,8 @@ package ui.pages;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.util.ArrayList;
-import java.util.HashSet;
 
-import fcbo.datatypes.FilmShowing;
+import db.model.FilmShowing;
 import free_ui.DatatypePage;
 import free_ui.UI;
 import free_ui.UIDesigner;
@@ -15,6 +14,8 @@ import free_ui.components.InteractiveList;
 import free_ui.components.LabeledCheckbox;
 import free_ui.components.LabeledTextField;
 import free_ui.components.primitives.Labels;
+import free_ui.components.primitives.TextArea;
+import free_ui.components.support.ApplyLabel;
 import free_ui.stacking.HStack;
 import free_ui.stacking.Spacer;
 import free_ui.stacking.StackManager;
@@ -32,13 +33,16 @@ public class FilmShowingDatatypePage extends DatatypePage {
             rentalRateField,
             advertisingCostField,
             spioCostField,
-            otherCostField;
+            otherCostField,
+            createdByUserField;
 
     private DateField moneyTransferredField;
 
     private LabeledCheckbox activeCheckbox;
 
     private InteractiveList<String> tagList;
+
+    private TextArea notesTextArea;
 
     public FilmShowingDatatypePage(int filmShowingID, AccessType accessType) {
         super(accessType);
@@ -76,6 +80,12 @@ public class FilmShowingDatatypePage extends DatatypePage {
 
         activeCheckbox = new LabeledCheckbox("Aktiv", 10);
 
+        moneyTransferredField = new DateField();
+
+        createdByUserField = new LabeledTextField("Erstellt von");
+
+        notesTextArea = new TextArea();
+
         var idLabel = Labels.text();
         idLabel.setText("ID: 1");
         UIDesigner.setHeight(idLabel, 15);
@@ -86,17 +96,24 @@ public class FilmShowingDatatypePage extends DatatypePage {
 
                     list.add(input);
 
-                    for(int i = 0; i < 100; i++)
+                    for (int i = 0; i < 100; i++)
                         list.add(input + i);
 
                     return list;
                 },
-                p -> UI.getInstance().addChildPanelToCurrentUIPanel(() -> p));
+                p -> UI.getInstance().addChildPanelToCurrentUIPanel(() -> p)).setHeight(150);
 
         mainStack.add(
                 new HorizontalLine("Allgemein").defaultHeight(),
                 movieNameField,
                 activeCheckbox.getStack(),
+
+                HStack.fit(
+                        notesTextArea,
+                        new Spacer(),
+                        ApplyLabel.to(moneyTransferredField.getStack(), "Geld überwiesen am").getStack()
+                ),
+          
 
                 new Spacer(),
 
@@ -112,14 +129,12 @@ public class FilmShowingDatatypePage extends DatatypePage {
 
                 new HorizontalLine("Tags").defaultHeight(),
                 tagList.getStack(),
-                
-                new Spacer(),
-
-                new DateField().getStack(),
 
                 new Spacer(),
-                
-                idLabel);
+
+                new Spacer(),
+
+                HStack.fit(VStack.fit(new Spacer(), idLabel), new Spacer(), createdByUserField));
 
         return mainStack;
     }

@@ -5,14 +5,14 @@ import cli.lambdaTerminal.CommandBuilder;
 import cli.lambdaTerminal.TerminalProcessor;
 import cli.lambdaTerminal.theme.Theme;
 import cli.lambdaTerminal.theme.Theme.Themes;
-import fcbo.FCBO;
+import fcbo.FreeCinemaBackoffice;
 import localstorage.LocalStorage;
 import utility.CryptographicUtility;
 import pvt.PrivateKeys;
 
 public class MainProcessor extends TerminalProcessor {
 
-    FCBO fcbo = FCBO.getInstance();
+    FreeCinemaBackoffice fcbo = FreeCinemaBackoffice.getInstance();
 
     public MainProcessor(String toolname) {
         super(toolname);

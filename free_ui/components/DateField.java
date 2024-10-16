@@ -1,14 +1,5 @@
 package free_ui.components;
 
-import java.text.AttributedCharacterIterator.Attribute;
-
-import javax.print.attribute.AttributeSet;
-import javax.swing.SwingConstants;
-import javax.swing.text.AbstractDocument;
-import javax.swing.text.BadLocationException;
-import javax.swing.text.DocumentFilter;
-import javax.swing.text.PlainDocument;
-
 import free_ui.Component;
 import free_ui.UIDesigner;
 import free_ui.components.primitives.Label;
@@ -18,6 +9,8 @@ import free_ui.components.support.DateDocumentFilter;
 import free_ui.components.support.StackComponent;
 import free_ui.stacking.HStack;
 import free_ui.stacking.Stack;
+import javax.swing.SwingConstants;
+import javax.swing.text.AbstractDocument;
 
 @SuppressWarnings("serial")
 public class DateField implements Component, StackComponent {

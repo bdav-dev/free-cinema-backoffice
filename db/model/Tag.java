@@ -1,4 +1,4 @@
-package fcbo.datatypes;
+package db.model;
 
 public class Tag {
     private int tagID;

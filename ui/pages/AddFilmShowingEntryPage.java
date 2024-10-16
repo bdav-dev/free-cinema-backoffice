@@ -3,7 +3,6 @@ package ui.pages;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-import fcbo.FCBO;
 import free_ui.Page;
 import free_ui.UI;
 import free_ui.UIDesigner;
@@ -13,6 +12,7 @@ import free_ui.stacking.Stack;
 import free_ui.stacking.StackManager;
 import free_ui.stacking.VStack;
 import free_ui.theme.AppTheme;
+import services.FilmShowingService;
 
 public class AddFilmShowingEntryPage extends Page {
 
@@ -58,7 +58,7 @@ public class AddFilmShowingEntryPage extends Page {
 
     private void loadMovieData() {
         UI.asyncHandlingExceptions(() -> {
-            filmShowingList.actions().addAll(FCBO.getInstance().getActiveFilmShowings());
+            filmShowingList.actions().addAll(FilmShowingService.getInstance().getActiveFilmShowings());
         });
     }
 }

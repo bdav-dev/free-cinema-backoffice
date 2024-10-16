@@ -2,6 +2,8 @@ package fcbo.datatypes;
 
 import java.util.ArrayList;
 
+import db.model.Tag;
+import db.model.UserAccount;
 import fcbo.datatypes.time.Timestamp;
 
 public abstract class Category {

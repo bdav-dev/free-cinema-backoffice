@@ -2,7 +2,7 @@ package free_ui.components;
 
 import javax.swing.DefaultListModel;
 
-import fcbo.datatypes.FilmShowing;
+import db.model.FilmShowing;
 import free_ui.Component;
 import free_ui.UI;
 import free_ui.UIDesigner;

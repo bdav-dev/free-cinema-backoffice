@@ -13,11 +13,11 @@ import cli.lambdaTerminal.TerminalProcessor;
 import cli.lambdaTerminal.TerminalWindow;
 import db.Database;
 import db.Database.DatabaseCredentials;
+import db.utility.HasDatabaseAccess;
 import exceptions.DatabaseException;
-import fcbo.FCBO;
 import utility.Concurrency;
 
-public class SQLProcessor extends TerminalProcessor {
+public class SQLProcessor extends TerminalProcessor implements HasDatabaseAccess {
 
     private boolean editMode;
 
@@ -311,10 +311,10 @@ public class SQLProcessor extends TerminalProcessor {
             try {
 
                 if (statementType == StatementType.QUERY) {
-                    resultSet = FCBO.getInstance().executeQuery(singleLineQuery);
+                    resultSet = database().executeFetchResultSet(singleLineQuery);
                     printTable(resultSet);
                 } else {
-                    affectedRows = FCBO.getInstance().executeAny(singleLineQuery);
+                    affectedRows = database().executeFetchAffectedRows(singleLineQuery);
                     printAffectedRows(affectedRows);
                 }
 

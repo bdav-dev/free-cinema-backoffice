@@ -1,6 +1,6 @@
 package ui.pages;
 
-import fcbo.datatypes.UserAccount;
+import db.model.UserAccount;
 import free_ui.DatatypePage;
 
 @SuppressWarnings("serial")

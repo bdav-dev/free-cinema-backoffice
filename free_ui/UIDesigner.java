@@ -3,6 +3,7 @@ package free_ui;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.FontMetrics;
 
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
@@ -10,6 +11,7 @@ import javax.swing.border.Border;
 
 import assets.AssetManager;
 import assets.AssetManager.Fonts;
+import free_ui.components.primitives.Label;
 
 public class UIDesigner {
     private static float FONT_SIZE_XL = 20f;
@@ -18,6 +20,12 @@ public class UIDesigner {
     private static float FONT_SIZE_SM = 14f;
 
     private UIDesigner() {
+    }
+
+    public static void makeFitContent(Label label) {
+        var fontMetrics = label.getFontMetrics(label.getFont());
+        int width = fontMetrics.stringWidth(label.getText());
+        setWidth(label, width);
     }
 
     public static void block(JComponent component) {

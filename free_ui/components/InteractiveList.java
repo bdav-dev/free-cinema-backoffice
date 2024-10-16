@@ -65,6 +65,16 @@ public class InteractiveList<T> implements Component, StackComponent {
         stack.setComponentPadding(4);
     }
 
+    public InteractiveList<T> setHeight(int height) {
+        stack.setHeight(height);
+        return this;
+    }
+
+    public InteractiveList<T> setWidth(int width) {
+        stack.setWidth(width);
+        return this;
+    }
+
     private void addFromString(String input) {
         java.util.List<T> converted = fromStringConverter.apply(addField.getText());
 

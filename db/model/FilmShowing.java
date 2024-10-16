@@ -1,8 +1,9 @@
-package fcbo.datatypes;
+package db.model;
 
 import java.util.ArrayList;
 
 import fcbo.datatype.entries.FilmShowingEntry;
+import fcbo.datatypes.Category;
 import fcbo.datatypes.time.Date;
 
 public class FilmShowing extends Category {

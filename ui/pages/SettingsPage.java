@@ -5,7 +5,8 @@ import java.awt.Toolkit;
 import java.util.HashMap;
 
 import appsettings.AppSettings;
-import fcbo.FCBO;
+import exceptions.AssertionException;
+import fcbo.FreeCinemaBackoffice;
 import free_ui.Page;
 import free_ui.UIDesigner;
 import free_ui.components.HorizontalLine;
@@ -17,6 +18,7 @@ import free_ui.stacking.Spacer;
 import free_ui.stacking.StackManager;
 import free_ui.stacking.VStack;
 import free_ui.theme.AppTheme;
+import services.LoginService;
 
 public class SettingsPage extends Page {
 
@@ -42,7 +44,10 @@ public class SettingsPage extends Page {
 
     private LabeledTextField mandtField;
 
-    private boolean authorized = FCBO.getInstance().getCurrentUser().getPrivilegeLevel() != 0;
+    private boolean authorized = LoginService.getInstance()
+            .getLoggedInUser()
+            .orElseThrow(() -> new AssertionException("Got into settings panel, but loggedInUser is not present"))
+            .getPrivilegeLevel() != 0;
 
     @Override
     public void launch() {

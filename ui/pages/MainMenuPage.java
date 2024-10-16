@@ -10,8 +10,9 @@ import javax.swing.JLabel;
 
 import assets.AssetManager;
 import assets.AssetManager.Images;
+import exceptions.AssertionException;
 import exceptions.DatabaseException;
-import fcbo.FCBO;
+import fcbo.FreeCinemaBackoffice;
 import fcbo.datatype.entries.EntryType;
 import free_ui.DatatypePage.AccessType;
 import free_ui.Page;
@@ -29,6 +30,7 @@ import free_ui.stacking.Spacer;
 import free_ui.stacking.StackManager;
 import free_ui.stacking.VStack;
 import free_ui.theme.AppTheme;
+import services.LoginService;
 import utility.Concurrency;
 
 public class MainMenuPage extends Page {
@@ -109,7 +111,11 @@ public class MainMenuPage extends Page {
         loggedInUserAccountField = Labels.smallText().centered();
         loggedInUserAccountField.setBackground(AppTheme.get().background());
         loggedInUserAccountField.setBorder(UIDesigner.getThinBorder());
-        setLoggedInUserAccountFieldText(FCBO.getInstance().getCurrentUsername());
+        setLoggedInUserAccountFieldText(
+                LoginService.getInstance()
+                        .getLoggedInUser()
+                        .orElseThrow(() -> new AssertionException("Got into main menu but loggedInUser is not present"))
+                        .getUsername());
 
         loggedInAsLabel = Labels.smallText().centered();
         loggedInAsLabel.setText("Eingeloggt als:");
@@ -193,7 +199,7 @@ public class MainMenuPage extends Page {
 
     public void userAccountSettingsButtonClicked() {
         getUIManager()
-                .launchPanel(() -> new UserAccountSettingsPage(FCBO.getInstance().getCurrentUser(), AccessType.EDIT));
+                .launchPanel(() -> new UserAccountSettingsPage(LoginService.getInstance().getLoggedInUser().get(), AccessType.EDIT));
     }
 
     public void queryAndChangeEntrysButtonClicked() {
@@ -202,7 +208,12 @@ public class MainMenuPage extends Page {
 
     @Override
     public void update() {
-        loggedInUserAccountField.setText(FCBO.getInstance().getCurrentUser().getUsername());
+        loggedInUserAccountField.setText(
+                LoginService.getInstance()
+                        .getLoggedInUser()
+                        .orElseThrow(() -> new AssertionException(
+                                "Trying to update main menu logged in user label, but logged in user is not present"))
+                        .getUsername());
     }
 
     public void infoButtonClicked() {
@@ -226,7 +237,7 @@ public class MainMenuPage extends Page {
             UIDesigner.block(logoutButton);
 
             try {
-                FCBO.getInstance().logoutUser();
+                LoginService.getInstance().logoutUser();
             } catch (DatabaseException e) {
                 addErrorPanel(e);
                 return;
@@ -243,7 +254,7 @@ public class MainMenuPage extends Page {
 
     @Override
     public void onClose() {
-        FCBO.getInstance().exit();
+        FreeCinemaBackoffice.getInstance().exit();
     }
 
 }
