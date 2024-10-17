@@ -1,7 +1,7 @@
 package dev.bdav.fcbo.frontend.dialog;
 
 import dev.bdav.fcbo.freeui.components.Button;
-import dev.bdav.fcbo.freeui.components.RoundedFrame;
+import dev.bdav.fcbo.freeui.components.RoundedPanel;
 import dev.bdav.fcbo.freeui.icon.Icon;
 import dev.bdav.fcbo.freeui.stacking.StackBuilder;
 import dev.bdav.fcbo.frontend.icon.GoogleMaterialIcon;
@@ -31,13 +31,11 @@ public class InitialUserCreationDialog extends JDialog {
                 .stackMargin(10)
                 .build();
 
-        var r = new RoundedFrame(test);
+        var r = new RoundedPanel(test);
         r.setBackground(Color.RED);
 
         var b = new Button();
         b.setText("hello");
-        b.setColor(Button.Color.DANGER);
-        b.setVariant(Button.Variant.PRIMARY);
 
         add(
                 StackBuilder.vertical()

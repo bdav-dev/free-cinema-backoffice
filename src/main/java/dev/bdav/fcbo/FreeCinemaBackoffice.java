@@ -51,7 +51,7 @@ public class FreeCinemaBackoffice {
             ui -> ui.getNavHeader().setNavigateBackButtonContent(Icon.standalone(GoogleMaterialIcon.WEST))
         );
 
-        Database.initialize();
+        //Database.initialize();
     }
 
 }

@@ -11,6 +11,7 @@ public class Button extends JButton {
     public Button() {
         this.color = Color.DEFAULT;
         this.variant = Variant.SECONDARY;
+        abc();
     }
 
     public void setColor(Color color) {
@@ -30,7 +31,7 @@ public class Button extends JButton {
                 setFont(getFont().deriveFont(Font.BOLD));
             }
             case SECONDARY -> {
-
+                setForeground(color.getColor());
             }
             case TERTIARY -> {
                 setBackground(null);
@@ -45,7 +46,8 @@ public class Button extends JButton {
     }
 
     public enum Color {
-        DEFAULT(null),
+        DEFAULT(new java.awt.Color(102, 168, 255)),
+        CONTRAST(null),
         DANGER(new java.awt.Color(224, 36, 26)),
         WARNING(new java.awt.Color(255, 255, 255)),
         SUCCESS(new java.awt.Color(21, 132, 67));

@@ -3,10 +3,10 @@ package dev.bdav.fcbo.freeui.components;
 import javax.swing.*;
 import java.awt.*;
 
-public class RoundedFrame extends JPanel {
+public class RoundedPanel extends JPanel {
     int cornerRadius = 20;
 
-    public RoundedFrame(Component component) {
+    public RoundedPanel(Component component) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
         add(component);

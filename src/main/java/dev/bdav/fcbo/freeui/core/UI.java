@@ -32,7 +32,7 @@ public class UI extends JFrame {
     private UI(Supplier<Page> initialPageSupplier, Consumer<JFrame> init) {
         this.pages = new Stack<>();
         
-        init.accept((JFrame) this);
+        init.accept(this);
 
         navHeader = new NavigationHeader();
         navHeader.addNavigateBackButtonClickListener(this::pop);
