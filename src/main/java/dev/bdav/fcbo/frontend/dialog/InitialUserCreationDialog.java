@@ -2,7 +2,7 @@ package dev.bdav.fcbo.frontend.dialog;
 
 import dev.bdav.fcbo.freeui.components.Button;
 import dev.bdav.fcbo.freeui.components.RoundedPanel;
-import dev.bdav.fcbo.freeui.icon.Icon;
+import dev.bdav.fcbo.freeui.icon.IconFactory;
 import dev.bdav.fcbo.freeui.stacking.StackBuilder;
 import dev.bdav.fcbo.frontend.icon.GoogleMaterialIcon;
 
@@ -40,7 +40,7 @@ public class InitialUserCreationDialog extends JDialog {
         add(
                 StackBuilder.vertical()
                         .content(
-                                Icon.labeled(GoogleMaterialIcon.PERSON_ADD, "test"),
+                                IconFactory.labeled(GoogleMaterialIcon.PERSON_ADD, "test"),
                                 new JLabel("Hello world"),
                                 button,
                                 r,

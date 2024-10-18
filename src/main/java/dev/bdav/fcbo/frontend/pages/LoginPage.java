@@ -11,7 +11,7 @@ import dev.bdav.fcbo.freeui.components.TopLabel;
 import dev.bdav.fcbo.freeui.core.Page;
 import dev.bdav.fcbo.freeui.core.UI;
 import dev.bdav.fcbo.freeui.font.Fonts;
-import dev.bdav.fcbo.freeui.icon.Icon;
+import dev.bdav.fcbo.freeui.icon.IconFactory;
 import dev.bdav.fcbo.freeui.interfaces.HasRender;
 import dev.bdav.fcbo.freeui.sizing.Size;
 import dev.bdav.fcbo.freeui.sizing.Sizing;
@@ -23,8 +23,6 @@ import dev.bdav.fcbo.freeui.stacking.StackBuilder;
 import dev.bdav.fcbo.frontend.dialog.InitialUserCreationDialog;
 import dev.bdav.fcbo.frontend.icon.GoogleMaterialIcon;
 import dev.bdav.fcbo.util.ApplicationConstants;
-
-import java.awt.*;
 
 
 public class LoginPage extends Page implements HasRender {
@@ -149,7 +147,7 @@ public class LoginPage extends Page implements HasRender {
 
     private JButton createLoginButton() {
         var loginButton = new JButton();
-        loginButton.add(Icon.labeled(GoogleMaterialIcon.LOGIN, "Login"));
+        loginButton.add(IconFactory.labeled(GoogleMaterialIcon.LOGIN, "Login"));
         Sizing.modify(loginButton)
             .width(Size.fixed(125))
             .height(Size.fixed(35));
