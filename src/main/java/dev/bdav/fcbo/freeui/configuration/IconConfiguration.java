@@ -7,7 +7,6 @@ import java.awt.*;
 import java.util.Optional;
 
 public class IconConfiguration {
-
     private static Font iconFont;
 
     private IconConfiguration() {

@@ -1,10 +1,9 @@
 package dev.bdav.fcbo.freeui.async;
 
+import javax.swing.*;
 import java.util.concurrent.ExecutionException;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-
-import javax.swing.SwingWorker;
 
 public class Concurrency {
 
@@ -12,8 +11,8 @@ public class Concurrency {
     }
 
     public static <T> void async(
-        Supplier<T> runAsync,
-        Consumer<T> whenDone
+            Supplier<T> runAsync,
+            Consumer<T> whenDone
     ) {
         new SwingWorker<T, T>() {
             @Override
@@ -35,8 +34,8 @@ public class Concurrency {
     }
 
     public static void async(
-        Runnable runAsync,
-        Runnable whenDone
+            Runnable runAsync,
+            Runnable whenDone
     ) {
         new SwingWorker<Void, Void>() {
             @Override

@@ -2,7 +2,6 @@ package dev.bdav.fcbo.freeui.components;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.Optional;
 
 public class Button extends JButton {
     private Variant variant;

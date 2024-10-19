@@ -3,9 +3,8 @@ package dev.bdav.fcbo.freeui.font;
 
 import dev.bdav.fcbo.freeui.exception.FontInitializationException;
 
-import java.awt.Font;
-
-import javax.swing.JComponent;
+import javax.swing.*;
+import java.awt.*;
 
 public class Fonts {
 
@@ -21,8 +20,8 @@ public class Fonts {
     public static void configureMonospaceFont(String resourcePath, float defaultFontSize) throws FontInitializationException {
         try {
             var inputStream = Fonts.class
-                .getClassLoader()
-                .getResourceAsStream(resourcePath);
+                    .getClassLoader()
+                    .getResourceAsStream(resourcePath);
 
             monospacedFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(defaultFontSize);
         } catch (Exception e) {
@@ -40,7 +39,7 @@ public class Fonts {
 
     public static void setFontSize(JComponent component, float fontSize) {
         component.setFont(
-            component.getFont().deriveFont(fontSize)
+                component.getFont().deriveFont(fontSize)
         );
     }
 

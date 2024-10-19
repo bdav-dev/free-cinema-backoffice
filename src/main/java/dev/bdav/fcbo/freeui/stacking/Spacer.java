@@ -1,8 +1,8 @@
 package dev.bdav.fcbo.freeui.stacking;
 
-import javax.swing.JComponent;
-
 import dev.bdav.fcbo.freeui.sizing.Size;
+
+import javax.swing.*;
 
 public class Spacer extends JComponent {
     private final SpacerType type;

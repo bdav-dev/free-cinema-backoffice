@@ -1,10 +1,9 @@
 package dev.bdav.fcbo.freeui.stacking;
 
-import java.util.function.Supplier;
-
-import javax.swing.JComponent;
-
 import dev.bdav.fcbo.freeui.sizing.Size;
+
+import javax.swing.*;
+import java.util.function.Supplier;
 
 public class StackBuilder {
     private final Stack stack;

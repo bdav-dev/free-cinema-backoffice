@@ -1,18 +1,15 @@
 package dev.bdav.fcbo.freeui.stacking;
 
-import java.awt.Dimension;
-import java.awt.LayoutManager;
+import dev.bdav.fcbo.freeui.sizing.Size;
+
+import javax.swing.*;
+import javax.swing.border.EmptyBorder;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Function;
-
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import dev.bdav.fcbo.freeui.sizing.Size;
 
 public abstract class Stack extends JPanel {
     private boolean usePreferredSizeOfParent;

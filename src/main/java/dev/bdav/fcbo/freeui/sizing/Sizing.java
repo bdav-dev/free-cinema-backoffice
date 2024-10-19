@@ -1,6 +1,6 @@
 package dev.bdav.fcbo.freeui.sizing;
 
-import javax.swing.JComponent;
+import javax.swing.*;
 
 
 public class Sizing {

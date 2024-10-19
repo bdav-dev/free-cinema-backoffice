@@ -1,20 +1,14 @@
 package dev.bdav.fcbo.freeui.core;
 
-import java.awt.BorderLayout;
+import dev.bdav.fcbo.freeui.stacking.StackBuilder;
+
+import javax.swing.*;
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Stack;
 import java.util.function.Consumer;
 import java.util.function.Supplier;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.LookAndFeel;
-import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
-import javax.swing.WindowConstants;
-
-import dev.bdav.fcbo.freeui.stacking.StackBuilder;
 
 public class UI extends JFrame {
     private static UI instance;
@@ -22,7 +16,7 @@ public class UI extends JFrame {
 
     private final NavigationHeader navHeader;
     private final JPanel content;
-    
+
     private final Stack<Page> pages;
 
     static {
@@ -31,24 +25,24 @@ public class UI extends JFrame {
 
     private UI(Supplier<Page> initialPageSupplier, Consumer<JFrame> init) {
         this.pages = new Stack<>();
-        
+
         init.accept(this);
 
         navHeader = new NavigationHeader();
         navHeader.addNavigateBackButtonClickListener(this::pop);
-        
+
         content = new JPanel();
         content.setLayout(new BorderLayout());
 
         setResizable(true);
         setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
         add(
-            StackBuilder.vertical()
-                .content(
-                    navHeader,
-                    content
-                )
-                .build()
+                StackBuilder.vertical()
+                        .content(
+                                navHeader,
+                                content
+                        )
+                        .build()
         );
 
         push(initialPageSupplier.get());
@@ -58,16 +52,16 @@ public class UI extends JFrame {
     }
 
     public static void launch(
-        Supplier<Page> initialPageSupplier,
-        Supplier<LookAndFeel> lookAndFeelSupplier,
-        Consumer<JFrame> init
+            Supplier<Page> initialPageSupplier,
+            Supplier<LookAndFeel> lookAndFeelSupplier,
+            Consumer<JFrame> init
     ) {
         try {
             UIManager.setLookAndFeel(lookAndFeelSupplier.get());
-        } catch(UnsupportedLookAndFeelException exception) {
+        } catch (UnsupportedLookAndFeelException exception) {
             System.err.println("Failed to set LookAndFeel: " + exception.getMessage());
         }
-        
+
         instance = new UI(initialPageSupplier, init);
         runWhenReady.forEach(action -> action.accept(instance));
         runWhenReady = null;
@@ -79,7 +73,7 @@ public class UI extends JFrame {
         } else {
             runWhenReady.add(action);
         }
-        
+
     }
 
     public static UI get() {
@@ -109,9 +103,9 @@ public class UI extends JFrame {
     }
 
     public final void push(Page page) {
-        if(!pages.isEmpty())
+        if (!pages.isEmpty())
             pages.peek().onVisibilityLoss();
-        
+
         pages.push(page);
         displayPage(page);
         updateNavBackButtonEnabled();
@@ -123,7 +117,7 @@ public class UI extends JFrame {
 
         pages.peek().onVisibilityLoss();
         pages.pop();
-        
+
         displayPage(pages.peek());
         updateNavBackButtonEnabled();
     }

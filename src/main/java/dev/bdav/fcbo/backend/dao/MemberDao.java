@@ -1,9 +1,8 @@
 package dev.bdav.fcbo.backend.dao;
 
-import org.hibernate.Session;
-
 import dev.bdav.fcbo.backend.Database;
 import dev.bdav.fcbo.backend.model.DbMember;
+import org.hibernate.Session;
 
 public class MemberDao {
     private static MemberDao instance;
@@ -27,7 +26,7 @@ public class MemberDao {
         t.setUsername("bdav");
         t.setIsActive(true);
 
-        try(Session session = Database.sessionFactory().openSession()) {
+        try (Session session = Database.sessionFactory().openSession()) {
             session.beginTransaction();
 
             session.persist(t);

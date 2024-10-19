@@ -1,11 +1,11 @@
 package dev.bdav.fcbo.freeui.components;
 
-import javax.swing.JScrollPane;
-
 import dev.bdav.fcbo.freeui.stacking.Stack;
 
+import javax.swing.*;
+
 public class VerticalScrollPane extends JScrollPane {
-    
+
     public VerticalScrollPane(Stack stack) {
         super(stack);
 

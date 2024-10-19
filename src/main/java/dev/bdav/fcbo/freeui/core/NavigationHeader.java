@@ -1,22 +1,17 @@
 package dev.bdav.fcbo.freeui.core;
 
-import java.awt.BorderLayout;
-import java.awt.Insets;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
-
-import javax.swing.JButton;
-import javax.swing.JLabel;
-import javax.swing.JComponent;
-import javax.swing.JPanel;
-
 import dev.bdav.fcbo.freeui.sizing.Size;
 import dev.bdav.fcbo.freeui.sizing.Sizing;
 import dev.bdav.fcbo.freeui.stacking.AlignContent;
 import dev.bdav.fcbo.freeui.stacking.HStack;
 import dev.bdav.fcbo.freeui.stacking.Stack;
 import dev.bdav.fcbo.freeui.stacking.StackBuilder;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Optional;
 
 public class NavigationHeader extends HStack {
     private final JButton navigateBackButton;
@@ -36,28 +31,28 @@ public class NavigationHeader extends HStack {
         navigateBackButton.setMargin(new Insets(0, 0, 0, 0));
         navigateBackButton.add(backLabel);
         navigateBackButton.addActionListener(
-            event -> navigateBackButtonClickListener.forEach(Runnable::run)
+                event -> navigateBackButtonClickListener.forEach(Runnable::run)
         );
         Sizing.modify(navigateBackButton)
-            .width(Size.fixed(BACK_BUTTON_WIDTH))
-            .height(Size.lazyGrowing(30));
+                .width(Size.fixed(BACK_BUTTON_WIDTH))
+                .height(Size.lazyGrowing(30));
 
         navHeaderComponentWrapper = new JPanel();
         navHeaderComponentWrapper.setLayout(new BorderLayout());
         Sizing.modify(navHeaderComponentWrapper)
-            .width(Size.eagerGrowing());
+                .width(Size.eagerGrowing());
 
         StackBuilder.modify((Stack) this)
-            .componentMargin(4)
-            .stackMarginX(4)
-            .stackMarginY(4)
-            .content(
-                navigateBackButton,
-                navHeaderComponentWrapper
-            )
-            .alignContent(AlignContent.TOP)
-            .width(Size.eagerGrowing())
-            .height(Size.fixed(36));
+                .componentMargin(4)
+                .stackMarginX(4)
+                .stackMarginY(4)
+                .content(
+                        navigateBackButton,
+                        navHeaderComponentWrapper
+                )
+                .alignContent(AlignContent.TOP)
+                .width(Size.eagerGrowing())
+                .height(Size.fixed(36));
     }
 
     public Optional<JComponent> getNavHeaderComponent() {

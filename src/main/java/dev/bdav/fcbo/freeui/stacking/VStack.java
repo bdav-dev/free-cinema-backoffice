@@ -1,13 +1,10 @@
 package dev.bdav.fcbo.freeui.stacking;
 
-import java.awt.Dimension;
-import java.util.Set;
-
-import javax.swing.Box;
-import javax.swing.BoxLayout;
-import javax.swing.JComponent;
-
 import dev.bdav.fcbo.freeui.sizing.Size;
+
+import javax.swing.*;
+import java.awt.*;
+import java.util.Set;
 
 public class VStack extends Stack {
 
@@ -23,32 +20,32 @@ public class VStack extends Stack {
     @Override
     protected void addSpacer(Size size) {
         add(
-            new Box.Filler(
-                new Dimension(0, size.min()),
-                new Dimension(0, size.preferred()),
-                new Dimension(0, size.max())
-            )
+                new Box.Filler(
+                        new Dimension(0, size.min()),
+                        new Dimension(0, size.preferred()),
+                        new Dimension(0, size.max())
+                )
         );
     }
 
     @Override
     protected boolean isAlignContentModeAllowed(AlignContent alignContentMode) {
         return !Set
-            .of(
-                AlignContent.TOP,
-                AlignContent.BOTTOM
-            )
-            .contains(alignContentMode);
+                .of(
+                        AlignContent.TOP,
+                        AlignContent.BOTTOM
+                )
+                .contains(alignContentMode);
     }
 
     @Override
     protected boolean isJustifyContentModeAllowed(JustifyContent justifyContentMode) {
         return !Set
-            .of(
-                JustifyContent.LEFT,
-                JustifyContent.RIGHT
-            )
-            .contains(justifyContentMode);
+                .of(
+                        JustifyContent.LEFT,
+                        JustifyContent.RIGHT
+                )
+                .contains(justifyContentMode);
     }
 
     @Override

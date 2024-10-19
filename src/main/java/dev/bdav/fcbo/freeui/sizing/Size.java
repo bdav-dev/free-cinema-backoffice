@@ -1,9 +1,7 @@
 package dev.bdav.fcbo.freeui.sizing;
 
-import java.awt.Dimension;
-
-import javax.swing.JComponent;
-
+import javax.swing.*;
+import java.awt.*;
 
 
 public record Size(

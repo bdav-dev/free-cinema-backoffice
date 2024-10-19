@@ -1,19 +1,12 @@
 package dev.bdav.fcbo.freeui.icon;
 
-import java.util.function.Supplier;
-
-import javax.swing.JComponent;
-import javax.swing.JLabel;
-
 import dev.bdav.fcbo.freeui.components.Icon;
-import dev.bdav.fcbo.freeui.exception.FontInitializationException;
-import dev.bdav.fcbo.freeui.font.Fonts;
 import dev.bdav.fcbo.freeui.stacking.AlignContent;
 import dev.bdav.fcbo.freeui.stacking.Spacer;
 import dev.bdav.fcbo.freeui.stacking.Stack;
 import dev.bdav.fcbo.freeui.stacking.StackBuilder;
 
-import java.awt.Font;
+import javax.swing.*;
 
 public class IconFactory {
 
@@ -22,48 +15,22 @@ public class IconFactory {
 
     public static Stack standalone(IconCodeProvidable iconCodeProvidable) {
         return StackBuilder.horizontal()
-                .content(
-                        new Icon(iconCodeProvidable)
-                )
+                .content(new Icon(iconCodeProvidable))
                 .build();
     }
 
-    public static Icon standalone(IconCodeProvidable iconCodeProvidable, float iconSize) {
-        return new Icon(iconCodeProvidable, iconSize);
-    }
-
-
-    public static Stack labeled(IconCodeProvidable iconCodeProvidable, String text) {
+    public static Stack standalone(IconCodeProvidable iconCodeProvidable, float iconSize) {
         return StackBuilder.horizontal()
-                .content(
-                        new Icon(iconCodeProvidable),
-                        Spacer.fixed(1),
-                        new JLabel(text)
-                )
-                .alignContent(AlignContent.CENTER)
+                .content(new Icon(iconCodeProvidable, iconSize))
                 .build();
     }
 
-    public static Stack labeled(IconCodeProvidable iconCodeProvidable, float iconSize, String text, float textSize) {
-        var textLabel = new JLabel(text);
-        Fonts.setFontSize(textLabel, textSize);
-
+    public static Stack labeled(IconCodeProvidable iconCodeProvidable, JLabel label) {
         return StackBuilder.horizontal()
                 .content(
-                        new Icon(iconCodeProvidable, iconSize),
-                        Spacer.fixed(1),
-                        textLabel
-                )
-                .alignContent(AlignContent.CENTER)
-                .build();
-    }
-
-    public static Stack labeled(IconCodeProvidable iconCodeProvidable, float iconSize, Supplier<JLabel> labelSupplier) {
-        return StackBuilder.horizontal()
-                .content(
-                        new Icon(iconCodeProvidable, iconSize),
-                        Spacer.fixed(1),
-                        labelSupplier.get()
+                        new Icon(iconCodeProvidable, label.getFont().getSize() + 5),
+                        Spacer.fixed(3),
+                        label
                 )
                 .alignContent(AlignContent.CENTER)
                 .build();

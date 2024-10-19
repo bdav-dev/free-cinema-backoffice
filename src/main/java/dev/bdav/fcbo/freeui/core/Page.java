@@ -1,9 +1,8 @@
 package dev.bdav.fcbo.freeui.core;
 
-import java.awt.BorderLayout;
+import javax.swing.*;
+import java.awt.*;
 import java.util.Optional;
-
-import javax.swing.JPanel;
 
 public abstract class Page extends JPanel {
     private String pageTitle;

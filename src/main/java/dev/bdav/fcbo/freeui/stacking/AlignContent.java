@@ -1,6 +1,6 @@
 package dev.bdav.fcbo.freeui.stacking;
 
-import javax.swing.JComponent;
+import javax.swing.*;
 
 public enum AlignContent {
     CENTER(JComponent.CENTER_ALIGNMENT),
