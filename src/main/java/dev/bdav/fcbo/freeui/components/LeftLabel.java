@@ -9,7 +9,6 @@ import javax.swing.*;
 public class LeftLabel extends HStack {
 
     public LeftLabel(String text, JComponent component) {
-
         StackBuilder.modify(this)
                 .content(
                         new JLabel(text),
@@ -19,5 +18,6 @@ public class LeftLabel extends HStack {
                         component
                 );
     }
+
 
 }

@@ -1,7 +1,7 @@
 package dev.bdav.fcbo.freeui.configuration;
 
 import dev.bdav.fcbo.freeui.exception.FontInitializationException;
-import dev.bdav.fcbo.freeui.icon.IconFactory;
+import dev.bdav.fcbo.freeui.factory.IconFactory;
 
 import java.awt.*;
 import java.util.Optional;

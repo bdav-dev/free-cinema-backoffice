@@ -1,16 +1,18 @@
 package dev.bdav.fcbo.frontend.pages;
 
-import dev.bdav.fcbo.backend.dao.MemberDao;
 import dev.bdav.fcbo.backend.service.AccountService;
+import dev.bdav.fcbo.freeui.components.SpecialButton;
 import dev.bdav.fcbo.freeui.components.TopLabel;
 import dev.bdav.fcbo.freeui.core.Page;
 import dev.bdav.fcbo.freeui.core.UI;
+import dev.bdav.fcbo.freeui.factory.IconFactory;
 import dev.bdav.fcbo.freeui.font.Fonts;
-import dev.bdav.fcbo.freeui.icon.IconFactory;
 import dev.bdav.fcbo.freeui.interfaces.HasRender;
 import dev.bdav.fcbo.freeui.sizing.Size;
 import dev.bdav.fcbo.freeui.sizing.Sizing;
 import dev.bdav.fcbo.freeui.stacking.*;
+import dev.bdav.fcbo.freeui.util.ButtonMargins;
+import dev.bdav.fcbo.frontend.dialog.DatabaseConnectionDialog;
 import dev.bdav.fcbo.frontend.dialog.InitialUserCreationDialog;
 import dev.bdav.fcbo.frontend.icon.GoogleMaterialIcon;
 import dev.bdav.fcbo.util.ApplicationConstants;
@@ -68,16 +70,21 @@ public class LoginPage extends Page implements HasRender {
     }
 
     private Stack createFooter() {
-        var testButton = new JButton("test");
-        testButton.addActionListener(
+        var dbConnectionSettingsButton = new SpecialButton(
+                IconFactory.labeled(GoogleMaterialIcon.DATABASE, "Einstellungen"),
+                SpecialButton.Variant.TERTIARY
+        );
+        dbConnectionSettingsButton.setMargin(ButtonMargins.SMALL_INSETS);
+        dbConnectionSettingsButton.addActionListener(
                 e -> {
-                    MemberDao.get().save();
+                    new DatabaseConnectionDialog(UI.get()).setVisible(true);
+                    //MemberDao.get().save();
                 }
         );
 
         return StackBuilder.horizontal()
                 .content(
-                        testButton, createVersionLabel()
+                        dbConnectionSettingsButton, createVersionLabel()
                 )
                 .justifyContent(JustifyContent.SPACE_BETWEEN)
                 .alignContent(AlignContent.BOTTOM)

@@ -4,9 +4,9 @@ import com.formdev.flatlaf.themes.FlatMacDarkLaf;
 import dev.bdav.fcbo.freeui.configuration.IconConfiguration;
 import dev.bdav.fcbo.freeui.core.UI;
 import dev.bdav.fcbo.freeui.exception.FontInitializationException;
+import dev.bdav.fcbo.freeui.factory.IconFactory;
 import dev.bdav.fcbo.freeui.font.FontSize;
 import dev.bdav.fcbo.freeui.font.Fonts;
-import dev.bdav.fcbo.freeui.icon.IconFactory;
 import dev.bdav.fcbo.frontend.icon.GoogleMaterialIcon;
 import dev.bdav.fcbo.frontend.pages.LoginPage;
 

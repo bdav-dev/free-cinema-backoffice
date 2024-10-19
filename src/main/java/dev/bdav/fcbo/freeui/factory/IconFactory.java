@@ -1,6 +1,7 @@
-package dev.bdav.fcbo.freeui.icon;
+package dev.bdav.fcbo.freeui.factory;
 
 import dev.bdav.fcbo.freeui.components.Icon;
+import dev.bdav.fcbo.freeui.interfaces.IconCodeProvidable;
 import dev.bdav.fcbo.freeui.stacking.AlignContent;
 import dev.bdav.fcbo.freeui.stacking.Spacer;
 import dev.bdav.fcbo.freeui.stacking.Stack;
@@ -34,6 +35,10 @@ public class IconFactory {
                 )
                 .alignContent(AlignContent.CENTER)
                 .build();
+    }
+
+    public static Stack labeled(IconCodeProvidable iconCodeProvidable, String text) {
+        return labeled(iconCodeProvidable, new JLabel(text));
     }
 
 }

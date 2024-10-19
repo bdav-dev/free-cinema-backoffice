@@ -1,7 +1,7 @@
 package dev.bdav.fcbo.freeui.components;
 
 import dev.bdav.fcbo.freeui.configuration.IconConfiguration;
-import dev.bdav.fcbo.freeui.icon.IconCodeProvidable;
+import dev.bdav.fcbo.freeui.interfaces.IconCodeProvidable;
 
 import javax.swing.*;
 import java.awt.*;

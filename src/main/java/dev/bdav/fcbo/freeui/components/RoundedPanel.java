@@ -9,7 +9,8 @@ public class RoundedPanel extends JPanel {
     public RoundedPanel(Component component) {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
 
-        setBackground(UIManager.getDefaults().getColor("Component.borderColor"));
+        // setBackground(UIManager.getDefaults().getColor("Component.borderColor"));
+        setBackground(new Color(18, 18, 18));
         add(component);
         setOpaque(false);
     }
