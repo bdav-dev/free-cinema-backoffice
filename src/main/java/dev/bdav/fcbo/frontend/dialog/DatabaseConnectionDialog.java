@@ -6,11 +6,13 @@ import dev.bdav.fcbo.freeui.components.label.H1;
 import dev.bdav.fcbo.freeui.components.label.SectionTitle;
 import dev.bdav.fcbo.freeui.factory.IconFactory;
 import dev.bdav.fcbo.freeui.factory.LeftLabelFactory;
+import dev.bdav.fcbo.freeui.factory.TextFieldFactory;
 import dev.bdav.fcbo.freeui.stacking.JustifyContent;
 import dev.bdav.fcbo.freeui.stacking.Spacer;
 import dev.bdav.fcbo.freeui.stacking.Stack;
 import dev.bdav.fcbo.freeui.stacking.StackBuilder;
 import dev.bdav.fcbo.freeui.util.ButtonMargins;
+import dev.bdav.fcbo.frontend.components.PasswordField;
 import dev.bdav.fcbo.frontend.icon.GoogleMaterialIcon;
 
 import javax.swing.*;
@@ -25,10 +27,9 @@ public class DatabaseConnectionDialog extends JDialog {
         setSize(600, 250);
         setLocationRelativeTo(parent);
 
-        var urlTextField = new JTextField();
-        var usernameTextField = new JTextField();
-        var passwordTextField = new JPasswordField();
-
+        var urlTextField = TextFieldFactory.mono();
+        var usernameTextField = TextFieldFactory.mono();
+        var passwordTextField = new PasswordField();
 
         add(
                 StackBuilder.vertical()
@@ -59,7 +60,7 @@ public class DatabaseConnectionDialog extends JDialog {
     private RoundedPanel createDatabaseConnectionSettingsPanel(
             JTextField urlTextField,
             JTextField usernameTextField,
-            JPasswordField passwordField
+            PasswordField passwordField
     ) {
         final int textFieldMaxWidth = 400;
 
@@ -93,7 +94,7 @@ public class DatabaseConnectionDialog extends JDialog {
         cancelButton.setMargin(ButtonMargins.MEDIUM_INSETS);
         cancelButton.addActionListener(e -> setVisible(false));
 
-        var saveButton = new SpecialButton("Speichern", SpecialButton.Variant.PRIMARY);
+        var saveButton = new SpecialButton("Überschreiben", SpecialButton.Variant.PRIMARY);
 
         return StackBuilder.horizontal()
                 .content(cancelButton, saveButton)

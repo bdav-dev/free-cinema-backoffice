@@ -11,7 +11,9 @@ public enum GoogleMaterialIcon implements IconCodeProvidable {
     PERSON_ADD("\ue7fe"),
     PASSKEY("\uf87f"),
     EMOJI_PEOPLE("\uea1d"),
-    DATABASE("\uf20e");
+    DATABASE("\uf20e"),
+    VISIBILITY("\ue8f4"),
+    VISIBILITY_OFF("\ue8f5");
 
     private final String iconCode;
 

@@ -9,6 +9,7 @@ import dev.bdav.fcbo.freeui.components.label.SectionTitle;
 import dev.bdav.fcbo.freeui.factory.IconFactory;
 import dev.bdav.fcbo.freeui.factory.LeftLabelFactory;
 import dev.bdav.fcbo.freeui.factory.TextAreaFactory;
+import dev.bdav.fcbo.freeui.factory.TextFieldFactory;
 import dev.bdav.fcbo.freeui.sizing.Size;
 import dev.bdav.fcbo.freeui.sizing.Sizing;
 import dev.bdav.fcbo.freeui.stacking.Spacer;
@@ -16,6 +17,7 @@ import dev.bdav.fcbo.freeui.stacking.Stack;
 import dev.bdav.fcbo.freeui.stacking.StackAlign;
 import dev.bdav.fcbo.freeui.stacking.StackBuilder;
 import dev.bdav.fcbo.freeui.util.ButtonMargins;
+import dev.bdav.fcbo.frontend.components.PasswordField;
 import dev.bdav.fcbo.frontend.icon.GoogleMaterialIcon;
 
 import javax.swing.*;
@@ -29,7 +31,7 @@ public class InitialUserCreationDialog extends JDialog {
     public InitialUserCreationDialog(Frame parent) {
         super(parent, true);
 
-        setMinimumSize(new Dimension(350, 400));
+        setMinimumSize(new Dimension(425, 390));
         setSize(550, 400);
         setLocationRelativeTo(parent);
 
@@ -49,8 +51,8 @@ public class InitialUserCreationDialog extends JDialog {
                 .width(Size.eagerGrowing())
                 .height(Size.eagerPreferred(10, 100));
 
-        var usernameTextField = new JTextField();
-        var passwordField = new JPasswordField();
+        var usernameTextField = TextFieldFactory.mono();
+        var passwordField = new PasswordField();
 
 
         add(
@@ -78,7 +80,7 @@ public class InitialUserCreationDialog extends JDialog {
         return title;
     }
 
-    private RoundedPanel createSignUpPanel(JTextField usernameTextField, JPasswordField passwordField) {
+    private RoundedPanel createSignUpPanel(JTextField usernameTextField, PasswordField passwordField) {
         var privilegeLabeled = new LeftLabel(
                 "Berechtigungen",
                 new JLabel("Administrator")

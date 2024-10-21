@@ -18,12 +18,18 @@ public class Fonts {
     }
 
     public static void configureMonospaceFont(String resourcePath, float defaultFontSize) throws FontInitializationException {
-        try {
-            var inputStream = Fonts.class
-                    .getClassLoader()
-                    .getResourceAsStream(resourcePath);
-
+        try (
+                var inputStream = Fonts.class
+                        .getClassLoader()
+                        .getResourceAsStream(resourcePath)
+        ) {
+            if (inputStream == null) {
+                throw new Exception("Input stream is null");
+            }
             monospacedFont = Font.createFont(Font.TRUETYPE_FONT, inputStream).deriveFont(defaultFontSize);
+
+            GraphicsEnvironment graphicsEnvironment = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            graphicsEnvironment.registerFont(monospacedFont);
         } catch (Exception e) {
             throw new FontInitializationException(e);
         }

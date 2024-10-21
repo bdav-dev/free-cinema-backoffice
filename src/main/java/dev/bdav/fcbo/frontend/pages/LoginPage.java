@@ -6,12 +6,14 @@ import dev.bdav.fcbo.freeui.components.TopLabel;
 import dev.bdav.fcbo.freeui.core.Page;
 import dev.bdav.fcbo.freeui.core.UI;
 import dev.bdav.fcbo.freeui.factory.IconFactory;
+import dev.bdav.fcbo.freeui.factory.TextFieldFactory;
 import dev.bdav.fcbo.freeui.font.Fonts;
 import dev.bdav.fcbo.freeui.interfaces.HasRender;
 import dev.bdav.fcbo.freeui.sizing.Size;
 import dev.bdav.fcbo.freeui.sizing.Sizing;
 import dev.bdav.fcbo.freeui.stacking.*;
 import dev.bdav.fcbo.freeui.util.ButtonMargins;
+import dev.bdav.fcbo.frontend.components.PasswordField;
 import dev.bdav.fcbo.frontend.dialog.DatabaseConnectionDialog;
 import dev.bdav.fcbo.frontend.dialog.InitialUserCreationDialog;
 import dev.bdav.fcbo.frontend.icon.GoogleMaterialIcon;
@@ -107,8 +109,7 @@ public class LoginPage extends Page implements HasRender {
     }
 
     private Stack createUsernameTextField() {
-        var usernameTextField = new JTextField();
-        usernameTextField.setFont(Fonts.monospaced());
+        var usernameTextField = TextFieldFactory.mono();
         Sizing.modify(usernameTextField)
                 .width(Size.lazyGrowing(100, 0.5f))
                 .height(Size.fixed(40));
@@ -126,8 +127,7 @@ public class LoginPage extends Page implements HasRender {
     }
 
     private Stack createPasswordField() {
-        var passwordField = new JPasswordField();
-        passwordField.setFont(Fonts.monospaced());
+        var passwordField = new PasswordField(40);
 
         Sizing.modify(passwordField)
                 .width(Size.lazyGrowing(100, 0.5f))
