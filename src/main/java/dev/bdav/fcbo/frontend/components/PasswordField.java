@@ -44,6 +44,10 @@ public class PasswordField extends HStack {
                 .componentMargin(1);
     }
 
+    public JPasswordField getJPasswordField() {
+        return passwordField;
+    }
+
     public void setIsPasswordVisible(boolean isPasswordVisible) {
         this.isPasswordVisible = isPasswordVisible;
 

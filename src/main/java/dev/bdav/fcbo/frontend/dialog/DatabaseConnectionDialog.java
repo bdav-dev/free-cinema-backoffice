@@ -14,22 +14,30 @@ import dev.bdav.fcbo.freeui.stacking.StackBuilder;
 import dev.bdav.fcbo.freeui.util.ButtonMargins;
 import dev.bdav.fcbo.frontend.components.PasswordField;
 import dev.bdav.fcbo.frontend.icon.GoogleMaterialIcon;
+import dev.bdav.fcbo.frontend.storage.DatabaseCredentials;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class DatabaseConnectionDialog extends JDialog {
+    private final DatabaseCredentials databaseCredentials;
+
+    JTextField urlTextField;
+    JTextField usernameTextField;
+    PasswordField passwordTextField;
 
     public DatabaseConnectionDialog(Frame parent) {
         super(parent, true);
+
+        this.databaseCredentials = new DatabaseCredentials();
 
         setMinimumSize(new Dimension(350, 250));
         setSize(600, 250);
         setLocationRelativeTo(parent);
 
-        var urlTextField = TextFieldFactory.mono();
-        var usernameTextField = TextFieldFactory.mono();
-        var passwordTextField = new PasswordField();
+        urlTextField = TextFieldFactory.mono();
+        usernameTextField = TextFieldFactory.mono();
+        passwordTextField = new PasswordField();
 
         add(
                 StackBuilder.vertical()
@@ -46,6 +54,32 @@ public class DatabaseConnectionDialog extends JDialog {
                         .build()
         );
 
+        mountCredentials();
+
+    }
+
+    private void mountCredentials() {
+        urlTextField.setText(
+                databaseCredentials.url().get().orElse("")
+        );
+        usernameTextField.setText(
+                databaseCredentials.username().get().orElse("")
+        );
+        passwordTextField.getJPasswordField().setText(
+                databaseCredentials.password().get().orElse("")
+        );
+    }
+
+    private void saveCredentials() {
+        databaseCredentials.url().set(
+                urlTextField.getText().trim()
+        );
+        databaseCredentials.username().set(
+                usernameTextField.getText().trim()
+        );
+        databaseCredentials.password().set(
+                new String(passwordTextField.getJPasswordField().getPassword())
+        );
     }
 
     private SectionTitle createTitle() {
@@ -95,6 +129,7 @@ public class DatabaseConnectionDialog extends JDialog {
         cancelButton.addActionListener(e -> setVisible(false));
 
         var saveButton = new SpecialButton("Überschreiben", SpecialButton.Variant.PRIMARY);
+        saveButton.addActionListener(e -> saveCredentials());
 
         return StackBuilder.horizontal()
                 .content(cancelButton, saveButton)
