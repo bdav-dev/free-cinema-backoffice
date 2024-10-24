@@ -6,6 +6,7 @@ import dev.bdav.fcbo.freeui.core.UI;
 import dev.bdav.fcbo.freeui.exception.FontInitializationException;
 import dev.bdav.fcbo.freeui.factory.IconFactory;
 import dev.bdav.fcbo.freeui.font.Fonts;
+import dev.bdav.fcbo.freeui.localstorage.LocalStorage;
 import dev.bdav.fcbo.frontend.icon.GoogleMaterialIcon;
 import dev.bdav.fcbo.frontend.pages.LoginPage;
 
@@ -43,6 +44,8 @@ public class FreeCinemaBackoffice {
         } catch (FontInitializationException e) {
             System.err.println("Couldn't set icon font.");
         }
+
+        LocalStorage.initializeDefaultStorage("fcbo");
 
         UI.runWhenReady(
                 ui -> ui.getNavHeader().setNavigateBackButtonContent(IconFactory.standalone(GoogleMaterialIcon.WEST))

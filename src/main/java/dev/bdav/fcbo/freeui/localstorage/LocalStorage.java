@@ -1,90 +1,59 @@
 package dev.bdav.fcbo.freeui.localstorage;
 
-import dev.bdav.fcbo.freeui.configuration.LocalStorageConfiguration;
-
 import java.util.Optional;
 import java.util.prefs.Preferences;
 
 public class LocalStorage {
-    private Preferences userPreferences;
+    private final Preferences preferences;
 
-    private static LocalStorage instance;
-    private static String nodeName;
+    private static LocalStorage defaultStorage;
 
-    static {
-        nodeName = "default";
+    public LocalStorage(String nodeName) {
+        preferences = Preferences.userRoot().node(nodeName);
     }
 
-    private LocalStorage() {
-        userPreferences = Preferences.userRoot().node("fcbo");
+    public static void initializeDefaultStorage(String defaultNodeName) {
+        defaultStorage = new LocalStorage(defaultNodeName);
     }
 
-    public static void initialize() {
-        var configuredNodeName = LocalStorageConfiguration.getConfiguredNodeName();
-        if (configuredNodeName.isEmpty()) {
-            throw new RuntimeException("is not configured.");
+    public static LocalStorage defaultStorage() {
+        if (defaultStorage == null) {
+            throw new RuntimeException("Default Not initialized.");
         }
-        nodeName = configuredNodeName.orElseThrow();
-    }
 
-    public static LocalStorage get() {
-        if (instance == null)
-            instance = new LocalStorage();
-
-        return instance;
+        return defaultStorage;
     }
 
     public void remove(String key) {
-        userPreferences.remove(key);
+        preferences.remove(key);
     }
 
     public void set(String key, Object value) {
-        if (value == null)
-            return;
-
-        userPreferences.put(key, encryptedValue);
+        preferences.put(key, value.toString());
     }
 
     public Optional<String> getString(String key) {
-        Optional<String> encryptedValue = Optional.ofNullable(userPreferences.get(key, null));
-
-        if (encryptedValue.isEmpty()) {
-            return Optional.empty();
-        }
-
-        return Optional.of(encryptedValue.orElseThrow());
+        return Optional.ofNullable(preferences.get(key, null));
     }
 
     public Optional<Integer> getInt(String key) {
-        Optional<String> value = getString(key);
-
-        if (value.isEmpty()) {
-            return Optional.empty();
-        }
-
-
-        try {
-            return Optional.of(Integer.valueOf(value.get()));
-        } catch (Exception e) {
-        }
-
-        return Optional.empty();
+        return getString(key).map(string -> {
+            try {
+                return Integer.parseInt(string);
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        });
     }
 
     public Optional<Double> getDouble(String key) {
-        Optional<String> value = getString(key);
-
-        if (value.isEmpty()) {
-            return Optional.empty();
-        }
-
-
-        try {
-            return Optional.of(Double.valueOf(value.get()));
-        } catch (Exception e) {
-        }
-
-        return Optional.empty();
+        return getString(key).map(string -> {
+            try {
+                return Double.parseDouble(string);
+            } catch (NumberFormatException e) {
+                return null;
+            }
+        });
     }
 
 }
