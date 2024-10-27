@@ -14,13 +14,13 @@ import dev.bdav.fcbo.freeui.stacking.StackBuilder;
 import dev.bdav.fcbo.freeui.util.ButtonMargins;
 import dev.bdav.fcbo.frontend.components.PasswordField;
 import dev.bdav.fcbo.frontend.icon.GoogleMaterialIcon;
-import dev.bdav.fcbo.frontend.storage.DatabaseCredentials;
+import dev.bdav.fcbo.frontend.storage.DatabaseCredentialsStorage;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class DatabaseConnectionDialog extends JDialog {
-    private final DatabaseCredentials databaseCredentials;
+    private final DatabaseCredentialsStorage databaseCredentialsStorage;
 
     JTextField urlTextField;
     JTextField usernameTextField;
@@ -29,7 +29,7 @@ public class DatabaseConnectionDialog extends JDialog {
     public DatabaseConnectionDialog(Frame parent) {
         super(parent, true);
 
-        this.databaseCredentials = new DatabaseCredentials();
+        this.databaseCredentialsStorage = new DatabaseCredentialsStorage();
 
         setMinimumSize(new Dimension(350, 250));
         setSize(600, 250);
@@ -60,24 +60,24 @@ public class DatabaseConnectionDialog extends JDialog {
 
     private void mountCredentials() {
         urlTextField.setText(
-                databaseCredentials.url().get().orElse("")
+                databaseCredentialsStorage.url().get().orElse("")
         );
         usernameTextField.setText(
-                databaseCredentials.username().get().orElse("")
+                databaseCredentialsStorage.username().get().orElse("")
         );
         passwordTextField.getJPasswordField().setText(
-                databaseCredentials.password().get().orElse("")
+                databaseCredentialsStorage.password().get().orElse("")
         );
     }
 
     private void saveCredentials() {
-        databaseCredentials.url().set(
+        databaseCredentialsStorage.url().set(
                 urlTextField.getText().trim()
         );
-        databaseCredentials.username().set(
+        databaseCredentialsStorage.username().set(
                 usernameTextField.getText().trim()
         );
-        databaseCredentials.password().set(
+        databaseCredentialsStorage.password().set(
                 new String(passwordTextField.getJPasswordField().getPassword())
         );
     }

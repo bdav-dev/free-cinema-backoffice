@@ -1,9 +1,10 @@
 package dev.bdav.fcbo.frontend.storage;
 
+import dev.bdav.fcbo.backend.model.misc.DatabaseCredentials;
 import dev.bdav.fcbo.freeui.localstorage.LocalStorage;
 import dev.bdav.fcbo.freeui.localstorage.LocalStorageSetting;
 
-public class DatabaseCredentials {
+public class DatabaseCredentialsStorage {
     private static final String URL_KEY = "db.url";
     private static final String USERNAME_KEY = "db.username";
     private static final String PASSWORD_KEY = "db.pw";
@@ -12,7 +13,7 @@ public class DatabaseCredentials {
     private final LocalStorageSetting<String> username;
     private final LocalStorageSetting<String> password;
 
-    public DatabaseCredentials() {
+    public DatabaseCredentialsStorage() {
         this.url = new LocalStorageSetting<String>(
                 LocalStorage.defaultStorage(),
                 URL_KEY,
@@ -27,6 +28,12 @@ public class DatabaseCredentials {
                 LocalStorage.defaultStorage(),
                 PASSWORD_KEY,
                 LocalStorageSetting.FromStringConverters.STRING
+        );
+    }
+
+    public DatabaseCredentials pack() {
+        return DatabaseCredentials.fromOptionals(
+            url.get(), username.get(), password.get()
         );
     }
 
