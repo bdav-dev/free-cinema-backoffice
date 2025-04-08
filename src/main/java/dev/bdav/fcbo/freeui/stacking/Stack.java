@@ -6,10 +6,11 @@ import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 import java.util.function.Function;
+import java.util.stream.Stream;
 
 public abstract class Stack extends JPanel {
     private boolean usePreferredSizeOfParent;
@@ -136,13 +137,19 @@ public abstract class Stack extends JPanel {
     }
 
     public void addStackComponents(JComponent... components) {
-        stackComponents.addAll(Arrays.asList(components));
+        stackComponents.addAll(
+                Stream.of(components)
+                        .filter(Objects::nonNull)
+                        .toList()
+        );
         rebuildStack();
     }
 
     public void setStackComponents(JComponent... components) {
         stackComponents = new ArrayList<>(
-                Arrays.asList(components)
+                Stream.of(components)
+                        .filter(Objects::nonNull)
+                        .toList()
         );
         rebuildStack();
     }

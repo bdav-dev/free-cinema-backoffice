@@ -2,6 +2,7 @@ package dev.bdav.fcbo.backend.model.misc;
 
 import dev.bdav.fcbo.util.StringUtils;
 
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Stream;
 
@@ -35,15 +36,29 @@ public class DatabaseCredentials {
                 .noneMatch(StringUtils::isBlank);
     }
 
-    public Optional<String> getUrl() {
+    public Optional<String> url() {
         return Optional.ofNullable(url);
     }
 
-    public Optional<String> getUsername() {
+    public Optional<String> username() {
         return Optional.ofNullable(username);
     }
 
-    public Optional<String> getPassword() {
+    public Optional<String> password() {
         return Optional.ofNullable(password);
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (!(o instanceof DatabaseCredentials that)) return false;
+        return Objects.equals(url, that.url)
+                && Objects.equals(username, that.username)
+                && Objects.equals(password, that.password);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(url, username, password);
+    }
+
 }

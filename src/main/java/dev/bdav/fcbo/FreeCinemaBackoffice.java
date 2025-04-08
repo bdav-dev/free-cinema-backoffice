@@ -1,6 +1,8 @@
 package dev.bdav.fcbo;
 
 import com.formdev.flatlaf.themes.FlatMacDarkLaf;
+import dev.bdav.fcbo.backend.Database;
+import dev.bdav.fcbo.backend.exception.DatabaseConfigurationException;
 import dev.bdav.fcbo.freeui.configuration.IconConfiguration;
 import dev.bdav.fcbo.freeui.core.UI;
 import dev.bdav.fcbo.freeui.exception.FontInitializationException;
@@ -9,11 +11,13 @@ import dev.bdav.fcbo.freeui.font.Fonts;
 import dev.bdav.fcbo.freeui.localstorage.LocalStorage;
 import dev.bdav.fcbo.frontend.icon.GoogleMaterialIcon;
 import dev.bdav.fcbo.frontend.pages.LoginPage;
+import dev.bdav.fcbo.frontend.storage.DatabaseCredentialsStorage;
 
 import javax.swing.*;
 import java.awt.*;
 
 public class FreeCinemaBackoffice {
+
     public static void main(String[] args) {
         SwingUtilities.invokeLater(
                 () -> UI.launch(
@@ -47,11 +51,18 @@ public class FreeCinemaBackoffice {
 
         LocalStorage.initializeDefaultStorage("fcbo");
 
-        UI.runWhenReady(
-                ui -> ui.getNavHeader().setNavigateBackButtonContent(IconFactory.standalone(GoogleMaterialIcon.WEST))
-        );
+        try {
+            Database.configure(DatabaseCredentialsStorage.get().pack());
+        } catch (DatabaseConfigurationException ignored) {
+        }
 
-        //Database.initialize();
+        UI.runAfterInitialization(
+                () -> UI.get()
+                        .getNavHeader()
+                        .setNavigateBackButtonContent(
+                                IconFactory.standalone(GoogleMaterialIcon.WEST)
+                        )
+        );
     }
 
 }

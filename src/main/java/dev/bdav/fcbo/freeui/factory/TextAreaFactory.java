@@ -7,7 +7,7 @@ import javax.swing.*;
 
 public class TextAreaFactory {
 
-    public static VerticalScrollPane readonlyScrollable(String text) {
+    public static VerticalScrollPane textBox(String text) {
         var textArea = new JTextArea();
         textArea.setEditable(false);
         textArea.setText(text);

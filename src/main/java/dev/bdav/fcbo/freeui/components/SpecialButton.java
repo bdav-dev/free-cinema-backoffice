@@ -5,9 +5,11 @@ import java.awt.*;
 
 public class SpecialButton extends JButton {
     private final Color defaultForegroundColor;
+    private final Color defaultBackgroundColor;
 
     private SpecialButton(Variant variant) {
         defaultForegroundColor = getForeground();
+        defaultBackgroundColor = getBackground();
         setVariant(variant);
     }
 
@@ -22,6 +24,12 @@ public class SpecialButton extends JButton {
     }
 
     public void setVariant(Variant variant) {
+        if(variant == Variant.DEFAULT) {
+            setBackground(defaultBackgroundColor);
+            setForeground(defaultForegroundColor);
+            return;
+        }
+
         setBackground(variant.getBackgroundColor());
         setForeground(
                 variant.getBackgroundColor() == null
@@ -34,7 +42,8 @@ public class SpecialButton extends JButton {
         PRIMARY(new Color(54, 116, 240)),
         PRIMARY_RED(new Color(224, 36, 26)),
         PRIMARY_GREEN(new Color(21, 132, 67)),
-        TERTIARY(null);
+        TERTIARY(null),
+        DEFAULT(null);
 
         private final Color backgroundColor;
 

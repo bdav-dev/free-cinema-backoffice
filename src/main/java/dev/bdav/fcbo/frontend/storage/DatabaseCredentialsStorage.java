@@ -13,28 +13,32 @@ public class DatabaseCredentialsStorage {
     private final LocalStorageSetting<String> username;
     private final LocalStorageSetting<String> password;
 
-    public DatabaseCredentialsStorage() {
-        this.url = new LocalStorageSetting<String>(
+    private static DatabaseCredentialsStorage instance;
+
+    private DatabaseCredentialsStorage() {
+        this.url = new LocalStorageSetting<>(
                 LocalStorage.defaultStorage(),
                 URL_KEY,
                 LocalStorageSetting.FromStringConverters.STRING
         );
-        this.username = new LocalStorageSetting<String>(
+        this.username = new LocalStorageSetting<>(
                 LocalStorage.defaultStorage(),
                 USERNAME_KEY,
                 LocalStorageSetting.FromStringConverters.STRING
         );
-        this.password = new LocalStorageSetting<String>(
+        this.password = new LocalStorageSetting<>(
                 LocalStorage.defaultStorage(),
                 PASSWORD_KEY,
                 LocalStorageSetting.FromStringConverters.STRING
         );
     }
 
-    public DatabaseCredentials pack() {
-        return DatabaseCredentials.fromOptionals(
-            url.get(), username.get(), password.get()
-        );
+    public static DatabaseCredentialsStorage get() {
+        if (instance == null) {
+            instance = new DatabaseCredentialsStorage();
+        }
+
+        return instance;
     }
 
     public LocalStorageSetting<String> url() {
@@ -48,4 +52,17 @@ public class DatabaseCredentialsStorage {
     public LocalStorageSetting<String> password() {
         return password;
     }
+
+    public void save(DatabaseCredentials credentials) {
+        url.set(credentials.url().orElseThrow());
+        username.set(credentials.username().orElseThrow());
+        password.set(credentials.password().orElseThrow());
+    }
+
+    public DatabaseCredentials pack() {
+        return DatabaseCredentials.fromOptionals(
+                url.get(), username.get(), password.get()
+        );
+    }
+
 }

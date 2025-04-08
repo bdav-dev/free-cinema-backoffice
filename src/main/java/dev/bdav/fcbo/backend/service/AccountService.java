@@ -1,6 +1,7 @@
 package dev.bdav.fcbo.backend.service;
 
 import dev.bdav.fcbo.backend.Database;
+import dev.bdav.fcbo.backend.exception.DatabaseConfigurationException;
 
 public class AccountService {
     private static AccountService instance;
@@ -18,17 +19,14 @@ public class AccountService {
     public boolean doesAnyAccountExist() {
         boolean doesExist;
 
-        try (var factory = Database.sessionFactory()) {
-            var session = factory.openSession();
-            session.beginTransaction();
-
+        try (var session = Database.sessionFactory().openSession()) {
             var size = session.createQuery("SELECT count(*) FROM DbMember", Long.class).getSingleResult();
             doesExist = size != 0;
 
-            session.getTransaction().commit();
-            session.close();
+        } catch (DatabaseConfigurationException e) {
+            throw e;
         } catch (Exception e) {
-            return false;
+            throw new RuntimeException(e);
         }
 
         return doesExist;

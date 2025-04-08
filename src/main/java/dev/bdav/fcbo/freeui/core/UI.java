@@ -12,18 +12,19 @@ import java.util.function.Supplier;
 
 public class UI extends JFrame {
     private static UI instance;
-    private static List<Consumer<UI>> runWhenReady;
 
     private final NavigationHeader navHeader;
     private final JPanel content;
 
     private final Stack<Page> pages;
 
+    private static List<Runnable> runAfterInitialization;
+
     static {
-        runWhenReady = new ArrayList<>();
+        runAfterInitialization = new ArrayList<>();
     }
 
-    private UI(Supplier<Page> initialPageSupplier, Consumer<JFrame> init) {
+    private UI(Consumer<JFrame> init) {
         this.pages = new Stack<>();
 
         init.accept(this);
@@ -45,10 +46,7 @@ public class UI extends JFrame {
                         .build()
         );
 
-        push(initialPageSupplier.get());
-
         setLocationRelativeTo(null);
-        setVisible(true);
     }
 
     public static void launch(
@@ -62,18 +60,19 @@ public class UI extends JFrame {
             System.err.println("Failed to set LookAndFeel: " + exception.getMessage());
         }
 
-        instance = new UI(initialPageSupplier, init);
-        runWhenReady.forEach(action -> action.accept(instance));
-        runWhenReady = null;
+        instance = new UI(init);
+        instance.push(initialPageSupplier.get());
+        instance.setVisible(true);
+        runAfterInitialization.forEach(Runnable::run);
+        runAfterInitialization = null;
     }
 
-    public static void runWhenReady(Consumer<UI> action) {
-        if (instance != null) {
-            throw new RuntimeException("UI is already initialized.");
-        } else {
-            runWhenReady.add(action);
+    public static void runAfterInitialization(Runnable runAfterInit) {
+        if (runAfterInitialization == null) {
+            throw new IllegalStateException("UI is already initialized");
         }
 
+        runAfterInitialization.add(runAfterInit);
     }
 
     public static UI get() {

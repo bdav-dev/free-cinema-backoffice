@@ -18,7 +18,7 @@ public class LocalStorage {
 
     public static LocalStorage defaultStorage() {
         if (defaultStorage == null) {
-            throw new RuntimeException("Default Not initialized.");
+            throw new RuntimeException("Default not initialized.");
         }
 
         return defaultStorage;

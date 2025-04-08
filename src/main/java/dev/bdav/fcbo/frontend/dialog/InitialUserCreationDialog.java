@@ -10,23 +10,18 @@ import dev.bdav.fcbo.freeui.factory.IconFactory;
 import dev.bdav.fcbo.freeui.factory.LeftLabelFactory;
 import dev.bdav.fcbo.freeui.factory.TextAreaFactory;
 import dev.bdav.fcbo.freeui.factory.TextFieldFactory;
+import dev.bdav.fcbo.freeui.interfaces.HasRender;
 import dev.bdav.fcbo.freeui.sizing.Size;
 import dev.bdav.fcbo.freeui.sizing.Sizing;
-import dev.bdav.fcbo.freeui.stacking.Spacer;
-import dev.bdav.fcbo.freeui.stacking.Stack;
-import dev.bdav.fcbo.freeui.stacking.StackAlign;
-import dev.bdav.fcbo.freeui.stacking.StackBuilder;
+import dev.bdav.fcbo.freeui.stacking.*;
 import dev.bdav.fcbo.freeui.util.ButtonMargins;
 import dev.bdav.fcbo.frontend.components.PasswordField;
 import dev.bdav.fcbo.frontend.icon.GoogleMaterialIcon;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 
-public class InitialUserCreationDialog extends JDialog {
-
+public class InitialUserCreationDialog extends JDialog implements HasRender {
 
     public InitialUserCreationDialog(Frame parent) {
         super(parent, true);
@@ -35,17 +30,14 @@ public class InitialUserCreationDialog extends JDialog {
         setSize(550, 400);
         setLocationRelativeTo(parent);
 
-        setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                System.exit(0);
-            }
-        });
+        render();
+    }
 
-        var descriptionTextArea = TextAreaFactory.readonlyScrollable(
-                "Es wurde erkannt, dass dieses System keine Benutzer besitzt. " +
-                        "Du kannst jetzt einen neuen Benutzer anlegen, um zu starten."
+    @Override
+    public void render() {
+        var descriptionTextArea = TextAreaFactory.textBox(
+                "Willkommen im Einrichtungsassistenten. " +
+                        "Du kannst jetzt einen neuen Benutzer anlegen, um FREE CINEMA Backoffice zu nutzen."
         );
         Sizing.modify(descriptionTextArea)
                 .width(Size.eagerGrowing())
@@ -53,7 +45,6 @@ public class InitialUserCreationDialog extends JDialog {
 
         var usernameTextField = TextFieldFactory.mono();
         var passwordField = new PasswordField();
-
 
         add(
                 StackBuilder.vertical()
@@ -111,20 +102,17 @@ public class InitialUserCreationDialog extends JDialog {
     }
 
     private Stack createFooter() {
-        var closeDialogButton = new SpecialButton("Dialog schließen", SpecialButton.Variant.TERTIARY);
+        var closeDialogButton = new SpecialButton("Abbrechen", SpecialButton.Variant.TERTIARY);
         closeDialogButton.setMargin(ButtonMargins.MEDIUM_INSETS);
         closeDialogButton.addActionListener(e -> setVisible(false));
-
-        var closeAppButton = new SpecialButton("App schließen", SpecialButton.Variant.TERTIARY);
-        closeAppButton.setMargin(ButtonMargins.MEDIUM_INSETS);
-        closeAppButton.addActionListener(e -> System.exit(0));
 
         var createAccountButton = new SpecialButton("Account anlegen", SpecialButton.Variant.PRIMARY);
 
         return StackBuilder.horizontal()
                 .content(
-                        closeDialogButton, Spacer.expanding(), closeAppButton, createAccountButton
+                        closeDialogButton, createAccountButton
                 )
+                .justifyContent(JustifyContent.RIGHT)
                 .componentMargin(5)
                 .build();
     }

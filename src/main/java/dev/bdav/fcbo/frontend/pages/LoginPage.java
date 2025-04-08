@@ -1,8 +1,11 @@
 package dev.bdav.fcbo.frontend.pages;
 
+import dev.bdav.fcbo.backend.exception.FrontendException;
 import dev.bdav.fcbo.backend.service.AccountService;
 import dev.bdav.fcbo.freeui.components.SpecialButton;
 import dev.bdav.fcbo.freeui.components.TopLabel;
+import dev.bdav.fcbo.freeui.concurrency.Async;
+import dev.bdav.fcbo.freeui.concurrency.Run;
 import dev.bdav.fcbo.freeui.core.Page;
 import dev.bdav.fcbo.freeui.core.UI;
 import dev.bdav.fcbo.freeui.factory.IconFactory;
@@ -16,34 +19,63 @@ import dev.bdav.fcbo.freeui.util.ButtonMargins;
 import dev.bdav.fcbo.frontend.components.PasswordField;
 import dev.bdav.fcbo.frontend.dialog.DatabaseConnectionDialog;
 import dev.bdav.fcbo.frontend.dialog.InitialUserCreationDialog;
+import dev.bdav.fcbo.frontend.dialog.MessageDialog;
+import dev.bdav.fcbo.frontend.dialog.builder.MessageDialogBuilder;
 import dev.bdav.fcbo.frontend.icon.GoogleMaterialIcon;
+import dev.bdav.fcbo.frontend.util.DialogUtil;
 import dev.bdav.fcbo.util.ApplicationConstants;
 
 import javax.swing.*;
 
 
 public class LoginPage extends Page implements HasRender {
-    AccountService accountService;
+    private final AccountService accountService;
+    private JButton setupButton;
 
     public LoginPage() {
         accountService = AccountService.get();
 
         render();
-
-        UI.runWhenReady(
-                ui -> test()
-        );
     }
 
-    private void test() {
-        var doesAccountExist = accountService.doesAnyAccountExist();
+    private void launchDatabaseConnectionDialog() {
+        var dialog = new DatabaseConnectionDialog(DatabaseConnectionDialog.Mode.OVERRIDE, UI.get());
+        dialog.setReconfigureDatabaseWhenCredentialsChange(true);
+        dialog.setVisible(true);
+    }
 
-        if (!doesAccountExist) {
-            System.out.println("Account does not exist");
-            var dialog = new InitialUserCreationDialog(UI.get());
-            dialog.setVisible(true);
-        }
+    private void tryToLaunchInitialUserCreationDialog() {
+        Run.async(accountService::doesAnyAccountExist)
+                .then(doesAnyAccountExist -> {
+                    if (doesAnyAccountExist) {
+                        launchSetupWizardNotAvailableMessageDialog();
+                    } else {
+                        launchInitialUserCreationDialog();
+                    }
+                })
+                .handle(FrontendException.class, e -> DialogUtil.show(MessageDialogBuilder.frontendException(e)))
+                .lock(setupButton)
+                .run();
+    }
 
+    private void launchInitialUserCreationDialog() {
+        new InitialUserCreationDialog(UI.get()).setVisible(true);
+    }
+
+    private void launchSetupWizardNotAvailableMessageDialog() {
+        new MessageDialog(
+                UI.get(),
+                MessageDialog.Content.of(
+                        MessageDialog.Type.INFORMATION,
+                        "Nicht erlaubt",
+                        "Der Einrichtungsassistent kann nicht gestartet werden, da das System bereits benutzt wird. Es existiert bereits mindestens ein Benutzer.",
+                        MessageDialog.Content.Button.of(
+                                "Schließen",
+                                SpecialButton.Variant.DEFAULT,
+                                Runnable::run
+                        )
+                )
+        ).setVisible(true);
     }
 
     @Override
@@ -73,20 +105,28 @@ public class LoginPage extends Page implements HasRender {
 
     private Stack createFooter() {
         var dbConnectionSettingsButton = new SpecialButton(
-                IconFactory.labeled(GoogleMaterialIcon.DATABASE, "Einstellungen"),
+                IconFactory.standalone(GoogleMaterialIcon.DATABASE),
                 SpecialButton.Variant.TERTIARY
         );
         dbConnectionSettingsButton.setMargin(ButtonMargins.SMALL_INSETS);
-        dbConnectionSettingsButton.addActionListener(
-                e -> {
-                    new DatabaseConnectionDialog(UI.get()).setVisible(true);
-                    //MemberDao.get().save();
-                }
+        dbConnectionSettingsButton.addActionListener(e -> launchDatabaseConnectionDialog());
+
+        setupButton = new SpecialButton(
+                IconFactory.standalone(GoogleMaterialIcon.EMOJI_PEOPLE),
+                SpecialButton.Variant.TERTIARY
         );
+        setupButton.addActionListener(e -> tryToLaunchInitialUserCreationDialog());
+        setupButton.setMargin(ButtonMargins.SMALL_INSETS);
 
         return StackBuilder.horizontal()
                 .content(
-                        dbConnectionSettingsButton, createVersionLabel()
+                        StackBuilder.horizontal()
+                                .content(
+                                        dbConnectionSettingsButton,
+                                        setupButton
+                                )
+                                .build(),
+                        createVersionLabel()
                 )
                 .justifyContent(JustifyContent.SPACE_BETWEEN)
                 .alignContent(AlignContent.BOTTOM)
@@ -158,8 +198,7 @@ public class LoginPage extends Page implements HasRender {
     }
 
     private JLabel createVersionLabel() {
-        var versionLabel = new JLabel("Version " + ApplicationConstants.APP_VERSION);
-        return versionLabel;
+        return new JLabel("Version " + ApplicationConstants.APP_VERSION);
     }
 
 }

@@ -38,9 +38,7 @@ public class PasswordField extends HStack {
         setIsPasswordVisible(false);
 
         StackBuilder.modify(this)
-                .content(
-                        passwordField, showHidePasswordButton
-                )
+                .content(passwordField, showHidePasswordButton)
                 .componentMargin(1);
     }
 
